@@ -2,11 +2,11 @@
 
 console.log('Task 1');
 
-function arrToSplit(strSplit) {
+function arrayToconvert(strSplit) {
 	return strSplit.split( );
 }
 
-console.log(arrToSplit ('Lorem ipsum dolor sit amet consectetur'))
+console.log(arrayToconvert ('Lorem ipsum dolor sit amet consectetur'))
 
 // Task 2
 
@@ -143,7 +143,7 @@ console.log(stringNumberParam ('consectetur'));
 console.log('Task 13');
 
 function stringLettersSort (worldLrtter) {
-	return  worldLrtter.split('').sort().join('')
+	return worldLrtter.split('').sort().join('')
 }
 
 console.log(stringLettersSort ('consectetur'));
@@ -157,7 +157,9 @@ function removeDuplicate(arr) {
 	var result = [];
 
 	for(var i = 0; i < arr.length ; i++) {
-		if(result.indexOf(arr[i]) === -1) result.push(arr[i]);
+		if(result.indexOf(-1 === arr[i]) ) {
+			result.push(arr[i]);
+		}
 	}
 
 	return result.join(',');
@@ -225,11 +227,10 @@ function removeDupli(str) {
 
 	maxsting = str[num];
 	
-	return maxsting.split(' ').reduce((a, b) => (b.length > a.length) ? b : a);;
-
+	return maxsting.split('').join('');
 }
 
-console.log(removeDupli('Lorem qwertyuiop, Ipsum qwer, Sit qwe qwertyuio, Consectetur qwert' ))
+console.log(removeDupli('Lorem qwertyuiopa, Ipsum qwer, Sit qwe qwertyuio, Consectetur qwert' ))
 
 // Task 19
 
@@ -310,3 +311,106 @@ function howOld (dateBirth) {
 }
 
 console.log(howOld (new Date(1996, 08, 17)));
+
+// DOM
+
+// Task 1
+
+var btn = document.getElementsByClassName('button')[0];
+btn.addEventListener('click', counter);
+
+function counter () {
+	num1 = parseInt(document.getElementsByClassName('form1')[0].value);
+	num2 = parseInt(document.getElementsByClassName('form2')[0].value);
+	num3 = parseInt(document.getElementsByClassName('form3')[0].value);
+
+	var newElem = document.getElementsByClassName('out')[0];
+	newElem.value = num1 + num2 + num3;
+}
+
+// Task 2
+
+var btnTask2 = document.getElementsByClassName('buttonTask2')[0];
+btnTask2.addEventListener('click', addStringTask);
+
+function addStringTask () {
+	number = document.getElementsByClassName('formTask2')[0].value;
+	var digits = number.toString().split('');
+	var realDigits = digits.map(Number);
+	let result = 0;
+	
+	for (let i = 0; i <= parseInt(number.length) - 1; i++) {
+		result = result + realDigits[i];
+	}
+
+	number = document.getElementsByClassName('formTask2')[0];
+	number.value = result;
+}
+
+// Task 3
+
+var btnTask3 = document.getElementsByClassName('buttonTask3')[0];
+btnTask3.addEventListener('click', arithmeticMean);
+
+function arithmeticMean () {
+	number = document.getElementsByClassName('formTask3')[0].value;
+	var digits = number.toString().split('');
+	var realDigits = digits.map(Number);
+	let result = 0;
+	
+	for (let i = 0; i <= parseInt(number.length) - 1; i++) {
+		result = result + realDigits[i];
+	}
+
+	result =  result / parseInt(number.length)
+	number = document.getElementsByClassName('formTask3')[0];
+	number.value = result;
+}
+
+// Task 4
+
+var btnTask4 = document.getElementsByClassName('buttonTask4')[0];
+btnTask4.addEventListener('click', yourNane);
+
+function yourNane () {
+	num1 = document.getElementsByClassName('formTask4-1')[0].value;
+	num2 = document.getElementsByClassName('formTask4-2')[0].value;
+	num3 = document.getElementsByClassName('formTask4-3')[0].value;
+
+	var newElem = document.getElementsByClassName('outTask4')[0];
+	newElem.value = num1 + ' ' + num2 + ' ' + num3;
+}
+
+// Task 5
+
+var btnTask5 = document.getElementsByClassName('buttonTask5')[0];
+btnTask5.addEventListener('click', yourBigNane);
+
+function yourBigNane () {
+	num1 = document.getElementsByClassName('formTask5-1')[0].value;
+	result1 = num1.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ')
+	num1 = document.getElementsByClassName('formTask5-1')[0];
+	num1.value = result1;
+
+	num2 = document.getElementsByClassName('formTask5-2')[0].value;
+	result2 = num2.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ')
+	num2 = document.getElementsByClassName('formTask5-2')[0];
+	num2.value = result2;
+	
+	num3 = document.getElementsByClassName('formTask5-3')[0].value;
+	result3 = num3.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ')
+	num3 = document.getElementsByClassName('formTask5-3')[0];
+	num3.value = result3;
+}
+
+// Task 6
+
+var btn = document.getElementsByClassName('buttonTask6')[0];
+btn.addEventListener('click', numberOfWordsDom);
+
+function numberOfWordsDom () {
+	word = document.getElementsByClassName('formTask6')[0].value;
+
+	word = document.getElementsByClassName('formTask6')[0];
+	word.value = word.length;
+}

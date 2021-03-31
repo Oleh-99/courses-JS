@@ -3,7 +3,7 @@
 console.log('Task 1');
 
 function arrayToconvert(strSplit) {
-	return strSplit.split( );
+	return strSplit.split(' ');
 }
 
 console.log(arrayToconvert ('Lorem ipsum dolor sit amet consectetur'))
@@ -23,7 +23,7 @@ console.log(arrToLength ('Lorem ipsum dolor sit amet consectetur'))
 console.log('Task 3');
 
 function splitString(stringToSplit, separator) {
-	return stringToSplit.replace (/ /g, separator);
+	return stringToSplit.replaceAll (' ', separator);
 }
 
 console.log(splitString('Lorem ipsum dolor sit amet consectetur', '/'));
@@ -33,7 +33,10 @@ console.log(splitString('Lorem ipsum dolor sit amet consectetur', '/'));
 console.log('Task 4');
 
 function stringToUpperCase (string) {
-	return string.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ')
+
+	return string.split(/\s+/).map(function (word) {
+		return word[0].toUpperCase() + word.substring(1)
+	}).join(' ');
 }
 
 console.log(stringToUpperCase('Lorem ipsum dolor sit amet consectetur'));
@@ -63,9 +66,13 @@ console.log(stringSearch ('Lorem ipsum dolor sit amet consectetur', 'Dolor'));
 console.log('Task 7');
 
 function stringCamelCase (stringLow) {
-	stringLow = stringLow.split(/\s/).map(word => word[0].toUpperCase() + word.substring(1)).join('');
+	stringLow = stringLow.split(/\s+/).map(function (word) {
+		return word[0].toUpperCase() + word.substring(1)
+	}).join('');
 
-	return stringLow.split(/\s/).map(word => word[0].toLowerCase() + word.substring(1)).join('')
+	return stringLow.split(/\s+/).map(function (word) {
+		return word[0].toLowerCase() + word.substring(1)
+	}).join('');
 }
 
 console.log(stringCamelCase ('Lorem ipsum dolor sit amet consectetur'));
@@ -75,7 +82,7 @@ console.log(stringCamelCase ('Lorem ipsum dolor sit amet consectetur'));
 console.log('Task 8');
 
 function splitSnake(stringToSnake, snake) {	
-	return stringToSnake.replace (/ /g, snake);
+	return stringToSnake.replaceAll (' ', snake);
 }
 
 console.log(splitSnake('Lorem ipsum dolor sit amet consectetur', '_'));
@@ -152,20 +159,20 @@ console.log(stringLettersSort ('consectetur'));
 
 console.log('Task 14');
 
-function removeDuplicate(arr) {
-	arr = arr.split(',');
-	var result = [];
+function removeDeleteDuplicate(arr) {
+	arr = arr.split(', ');
+	var result = [ ];
 
 	for(var i = 0; i < arr.length ; i++) {
-		if(result.indexOf(-1 === arr[i]) ) {
+		if(-1 === result.indexOf(arr[i] ) ) {
 			result.push(arr[i]);
 		}
 	}
 
-	return result.join(',');
+	return result.join(', ');
 }
 
-console.log(removeDuplicate('вишня, груша, слива, груша'))
+console.log(removeDeleteDuplicate('вишня, груша, слива, груша'))
 
 // Task 15 
 
@@ -191,7 +198,8 @@ console.log(scringTypeOf ('111'));
 
 console.log('Task 17');
 
-function removeDupli(str) {
+function removeDuplicate(str) {
+	str = str.split(', ');
 	let maxLength = 0;
 	let num;
 
@@ -206,13 +214,13 @@ function removeDupli(str) {
 	return str[num];
 }
 
-console.log(removeDupli('Lorem, Ipsum, Sit, Consectetur'))
+console.log(removeDuplicate('Lorem', 'Ipsum', 'Sit', 'Consectetur'))
 
 // Task 18 
 
 console.log('Task 18');
 
-function removeDupli(str) {
+function removeDuplicatestring(str) {
 	str = str.split(' ');
 	let maxLength = 0;
 	let	num;
@@ -230,7 +238,7 @@ function removeDupli(str) {
 	return maxsting.split('').join('');
 }
 
-console.log(removeDupli('Lorem qwertyuiopa, Ipsum qwer, Sit qwe qwertyuio, Consectetur qwert' ))
+console.log(removeDuplicatestring('Lorem qwertyuiopa, Ipsum qwer, Sit qwe qwertyuio, Consectetur qwert' ))
 
 // Task 19
 
@@ -310,107 +318,145 @@ function howOld (dateBirth) {
 	return Math.floor((((new Date()) - dateBirth) / (24 * 3600 * 365.25 * 1000 + 1)))
 }
 
-console.log(howOld (new Date(1996, 08, 17)));
+console.log(howOld (new Date(1996, 02, 23)));
 
 // DOM
 
 // Task 1
 
-var btn = document.getElementsByClassName('button')[0];
-btn.addEventListener('click', counter);
+var $btn = document.getElementsByClassName('button')[0];
+$btn.addEventListener('click', function () {
+	$num1 = parseInt(document.getElementsByClassName('form1')[0].value);
+	$num2 = parseInt(document.getElementsByClassName('form2')[0].value);
+	$num3 = parseInt(document.getElementsByClassName('form3')[0].value);
 
-function counter () {
-	num1 = parseInt(document.getElementsByClassName('form1')[0].value);
-	num2 = parseInt(document.getElementsByClassName('form2')[0].value);
-	num3 = parseInt(document.getElementsByClassName('form3')[0].value);
-
-	var newElem = document.getElementsByClassName('out')[0];
-	newElem.value = num1 + num2 + num3;
-}
+	if (-1 !== $num1 && -1 !== $num2 && -1 !== $num3) {
+		document.getElementsByClassName('out')[0].value = $num1 + $num2 + $num3;
+	} else {
+		alert ('Error');
+	} 
+} );
 
 // Task 2
 
-var btnTask2 = document.getElementsByClassName('buttonTask2')[0];
-btnTask2.addEventListener('click', addStringTask);
-
-function addStringTask () {
-	number = document.getElementsByClassName('formTask2')[0].value;
-	var digits = number.toString().split('');
-	var realDigits = digits.map(Number);
+var $btnTask2 = document.getElementsByClassName('buttonTask2')[0];
+$btnTask2.addEventListener('click', function () {
+	$number = document.getElementsByClassName('formTask2')[0].value;
+	$number = $number.toString().split('').map(Number);
 	let result = 0;
 	
-	for (let i = 0; i <= parseInt(number.length) - 1; i++) {
-		result = result + realDigits[i];
+	for (let i = 0; i <= $number.length - 1; i++) {
+		result += $number[i];
 	}
 
-	number = document.getElementsByClassName('formTask2')[0];
-	number.value = result;
-}
+	document.getElementsByClassName('formTask2')[0].value = result;
+} );
 
 // Task 3
 
-var btnTask3 = document.getElementsByClassName('buttonTask3')[0];
-btnTask3.addEventListener('click', arithmeticMean);
-
-function arithmeticMean () {
-	number = document.getElementsByClassName('formTask3')[0].value;
-	var digits = number.toString().split('');
-	var realDigits = digits.map(Number);
+var $btnTask3 = document.getElementsByClassName('buttonTask3')[0];
+$btnTask3.addEventListener('click', function () {
+	$number = document.getElementsByClassName('formTask3')[0].value;
+	$number = $number.toString().split(',').map(Number);
 	let result = 0;
 	
-	for (let i = 0; i <= parseInt(number.length) - 1; i++) {
-		result = result + realDigits[i];
+	for (let i = 0; i <= $number.length - 1; i++) {
+		result += $number[i];
 	}
 
-	result =  result / parseInt(number.length)
-	number = document.getElementsByClassName('formTask3')[0];
-	number.value = result;
-}
+	result /=  $number.length;
+	document.getElementsByClassName('formTask3')[0].value = result;
+});
 
 // Task 4
 
-var btnTask4 = document.getElementsByClassName('buttonTask4')[0];
-btnTask4.addEventListener('click', yourNane);
+var $btnTask4 = document.getElementsByClassName('buttonTask4')[0];
+$btnTask4.addEventListener('click', function () {
+	$num1 = document.getElementsByClassName('formTask4')[0].value;
+	$num1 = $num1.split(' ');
 
-function yourNane () {
-	num1 = document.getElementsByClassName('formTask4-1')[0].value;
-	num2 = document.getElementsByClassName('formTask4-2')[0].value;
-	num3 = document.getElementsByClassName('formTask4-3')[0].value;
-
-	var newElem = document.getElementsByClassName('outTask4')[0];
-	newElem.value = num1 + ' ' + num2 + ' ' + num3;
-}
+	if (3 === $num1.length) {
+		document.getElementsByClassName('outTask4-1')[0].value = $num1[0];
+		document.getElementsByClassName('outTask4-2')[0].value = $num1[1];
+		document.getElementsByClassName('outTask4-3')[0].value = $num1[2];
+	} else {
+		alert ('Error');
+	} 
+});
 
 // Task 5
 
-var btnTask5 = document.getElementsByClassName('buttonTask5')[0];
-btnTask5.addEventListener('click', yourBigNane);
-
-function yourBigNane () {
-	num1 = document.getElementsByClassName('formTask5-1')[0].value;
-	result1 = num1.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ')
-	num1 = document.getElementsByClassName('formTask5-1')[0];
-	num1.value = result1;
-
-	num2 = document.getElementsByClassName('formTask5-2')[0].value;
-	result2 = num2.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ')
-	num2 = document.getElementsByClassName('formTask5-2')[0];
-	num2.value = result2;
-	
-	num3 = document.getElementsByClassName('formTask5-3')[0].value;
-	result3 = num3.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ')
-	num3 = document.getElementsByClassName('formTask5-3')[0];
-	num3.value = result3;
+function yourNaneBigLetter (name) {
+	return name.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
 }
+var $btnTask5 = document.getElementsByClassName('buttonTask5')[0];
+$btnTask5.addEventListener('click', function () {
+	$num1 = document.getElementsByClassName('formTask5-1')[0].value;
+	$num2 = document.getElementsByClassName('formTask5-2')[0].value;
+	$num3 = document.getElementsByClassName('formTask5-3')[0].value;
+
+	if ($num1 !== undefined && $num2 !== undefined && $num3 !== undefined) {
+		result1 = yourNaneBigLetter ($num1);
+		result2 = yourNaneBigLetter ($num2);
+		result3 = yourNaneBigLetter ($num3);
+		
+		document.getElementsByClassName('formTask5-1')[0].value = result1;
+		document.getElementsByClassName('formTask5-2')[0].value = result2;
+		document.getElementsByClassName('formTask5-3')[0].value = result3;
+	}else {
+		alert('Error')
+	}
+});
 
 // Task 6
 
-var btn = document.getElementsByClassName('buttonTask6')[0];
-btn.addEventListener('click', numberOfWordsDom);
+var $buttonTask6 = document.getElementsByClassName('buttonTask6')[0];
+$buttonTask6.addEventListener('click', function () {
+	var word = document.getElementsByClassName('formTask6')[0].value.length;
+	document.getElementsByClassName('formTask6')[0].value = word;
+});
 
-function numberOfWordsDom () {
-	word = document.getElementsByClassName('formTask6')[0].value;
+// Task 7 
 
-	word = document.getElementsByClassName('formTask6')[0];
-	word.value = word.length;
-}
+var $buttonTask7 = document.getElementsByClassName('buttonTask7')[0];
+$buttonTask7.addEventListener('click', function () {
+	var words = document.getElementsByClassName('formTask7')[0].value;
+	words = words.split(' ');
+	var maxNumber = 0;
+
+	for (let i = 0; i < words.length; i++) {
+		if (words[i].length > maxNumber) {
+			maxNumber = words[i].length;
+		}
+	}
+
+    document.getElementsByClassName('formTask7')[0].value = maxNumber;
+});
+
+// Task 8 
+
+var $buttonTask8 = document.getElementsByClassName('buttonTask8')[0];
+$buttonTask8.addEventListener('click', function () {
+	var date = document.getElementsByClassName('formTask8')[0].value;
+	date = new Date(date);
+	var i = date.getDay();
+	var nameDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+	
+	document.getElementsByClassName('formTask8')[0].value = nameDay[i];
+});
+
+// Task 9
+
+var $buttonTask9 = document.getElementsByClassName('imgTask9')[0];
+$buttonTask9.addEventListener('click', function () {
+	var foto = document.getElementsByClassName('imgTask9')[0];
+	if(this.classList.contains('fotoBig') === false){
+		foto.classList.add('fotoBig');
+		foto = (parseInt(foto.width)) * 2;
+	}else {
+		foto.classList.remove('fotoBig');
+		foto = (parseInt(foto.width)) / 2;
+	}
+
+	document.getElementsByClassName('imgTask9')[0].style.width = foto + 'px';
+} )

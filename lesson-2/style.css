@@ -1,0 +1,74 @@
+.popup-wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.3);
+	display: none;
+	opacity: 0;
+	transition: all 0.3s ease;
+}
+
+.popup {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 10;
+	text-align: center;
+}
+
+.popup-content{
+	position: relative;
+}
+
+.buttonT19Close {
+	position: absolute;
+	top:10px;
+	right: 10px;
+	font-size: 20px;
+	font-weight: 700;
+	background: transparent;
+	outline: none;
+	border: none;
+	color: white;
+	transition: all 0.3s ease;
+}
+
+.buttonT19Close:hover {
+	color: rgb(190, 189, 189);
+}
+
+.popup-inner form {
+	max-width: 320px;
+	margin: 0 auto;
+	margin-bottom: 10px;
+}
+
+.popup-inner input[type="email"] {
+	margin-right: 20px;
+	color: #000;
+}
+
+.popup-inner {
+	max-width: 400px;
+	background: #F1BB2F;
+	border-radius: 5px;
+	padding: 40px;
+	padding-top: 20px;
+}
+
+.top-text {
+	margin-bottom: 5px;
+}
+
+.bottom-text {
+	font-size: 12px;
+}
+
+.popup img {
+	margin-bottom: -5px;
+	width: 100%;
+}
+

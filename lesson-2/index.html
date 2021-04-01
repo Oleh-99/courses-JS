@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
 	<style>
 		button {
 			cursor: pointer;
@@ -87,28 +88,54 @@
 
 	<h3>Task 16</h3>
 	<p>Створити форму в якій треба ввести імя фамілію рік нароження місце проживаня номер телефону і при клікі на кнопку визветься алерт з усіма цими данними.</p>
-	<input type="text" class="formT16" placeholder="Імя"><br><br>
-	<input type="text" class="formT16" placeholder="Фамилия"><br><br>
-	<input type="numbers" class="formT16" placeholder="Рік"><br><br>
-	<input type="text" class="formT16" placeholder="Проживання"><br><br>
-	<input type="tel" class="formT16" placeholder="Телефон"><br><br>
-	<button class="buttonT16">button</button>
+	<form onsubmit="return false">
+		<input type="text" class="formT16" placeholder="Імя"><br><br>
+		<input type="text" class="formT16" placeholder="Фамилия"><br><br>
+		<input type="numbers" class="formT16" placeholder="Рік"><br><br>
+		<input type="text" class="formT16" placeholder="Проживання"><br><br>
+		<input type="tel" class="formT16" placeholder="Телефон"><br><br>
+		<button class="buttonT16">button</button>
+	</form>
 
 	<h3>Task 17</h3>
 	<p>Створити форму в яку ти вводиш логін пароль і перевірку паролю. паролі повинні співпадати якщо все вірно то ви реєструєтесь і видаєти алерт з данними. якщо паролі не співпадають або якесь поле пусте видати помилку з потрібним текстом.</p>
-	<input type="text" class="formT17" placeholder="Login"><br><br>
-	<input type="password" class="formT17" placeholder="password"><br><br>
-	<input type="password" class="formT17" placeholder="password"><br><br>
-	<button class="buttonT17">button</button>
+	<form onsubmit="return false">
+		<input type="text" class="formT17" placeholder="Login"><br><br>
+		<input type="password" class="formT17" placeholder="password"><br><br>
+		<input type="password" class="formT17" placeholder="password"><br><br>
+		<button class="buttonT17">button</button>
+	</form>
 
 	<h3>Task 18</h3>
 	<p>Написати калькулятор результат повинен виводитися в алерті.</p>
-	<input type="text" class="formT18"><br><br>
-	<input type="text" class="formT18"><br><br>
-	<button class="buttonT18">button</button>
+	<input type="numbers" class="formT18"><br><br>
+	<input type="numbers" class="formT18"><br><br>
+	<button class="buttonT18 add">+</button>
+	<button class="buttonT18 subtraction">-</button>
+	<button class="buttonT18 multiplication">*</button>
+	<button class="buttonT18 division">/</button><br><br>
 
+	<h3>Task 19</h3>
+	<p> Створити блок з картинкою і текстом який по дефолту скритий при клікі на кнопку цей блок повинен зявитися по центру екрану над усіма елементами.</p>
+	<button class="buttonT19">button</button>
+	<div class="popup-wrapper">
+		<div class="popup">
+			<div class="popup-content">
+				<button class="buttonT19Close">X</button>
+				<img src="hyperion-popup.jpg" alt="">
+				<div class="popup-inner color-scheme-white">
+					<div class="top-text">Be in touch with us</div>
+					<h2 class="title">Subscribe and receive	news about Hyperion</h2>
+					<form>
+						<input type="email" placeholder="Your Email Address">
+						<input type="submit" value="Sign Up">
+					</form>
+					<span class="bottom-text">Will be used in accordance with our <strong>Privacy Policy</strong></span>
+				</div>
+			</div>
+		</div>
+	</div>
 
-	<!-- 19) Створити блок з картинкою і текстом який по дефолту скритий при клікі на кнопку цей блок повинен зявитися по центру екрану над усіма елементами. (приклад http://prntscr.com/10wxjqq) -->
 	<script src="app.js"></script>
 </body>
 </html>

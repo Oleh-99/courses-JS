@@ -209,42 +209,68 @@ $buttonTask17.addEventListener('click', function () {
 
 // Task 18
 
+var $calcResult = document.getElementsByClassName('calcResult')[0];
 var btn =  document.getElementsByClassName('buttonT18')
 
 for (let i = 0; i < btn.length; i++) {
 	var $buttonTask18 = btn[i];
 	$buttonTask18.addEventListener('click', function () {
-		var $number1 =  document.getElementsByClassName('formT18')[0].value;
-		var $number2 =  document.getElementsByClassName('formT18')[1].value;
-		let resultCalc;
-		$number1 = parseInt($number1);
-		$number2 = parseInt($number2);
 
 		if (this.classList.contains('add')) {
-			resultCalc = $number1 + $number2;
+			$calcResult.classList.remove('subtraction', 'multiplication', 'division');
+			$calcResult.classList.add('add');
 		}
 		if (this.classList.contains('subtraction')) {
-			resultCalc = $number1 - $number2;
+			$calcResult.classList.remove('add', 'multiplication', 'division');
+			$calcResult.classList.add('subtraction');
 		}
 		if (this.classList.contains('multiplication')) {
-			resultCalc = $number1 * $number2;
+			$calcResult.classList.remove('add', 'subtraction', 'division');
+			$calcResult.classList.add('multiplication')
 		}
 		if (this.classList.contains('division')) {
-			if ($number2 !== 0) {
-				resultCalc = $number1 / $number2;
-			} else {
-				alert('Error')
-			}
-		}
-		
-		if(!isNaN(resultCalc)) {
-			alert(resultCalc)
-		} else {
-			document.getElementsByClassName('formT18')[0].value = 'Error';
-			document.getElementsByClassName('formT18')[1].value = 'Error';
+			$calcResult.classList.remove('add', 'subtraction', 'multiplication');
+			$calcResult.classList.add('division')
 		}
 	});
 }
+
+$calcResult.addEventListener('click', function () { 
+	var $number1 =  document.getElementsByClassName('formT18')[0].value;
+	var $number2 =  document.getElementsByClassName('formT18')[1].value;
+	let resultCalc;
+	let resultError
+	$number1 = parseInt($number1);
+	$number2 = parseInt($number2);
+
+	if (this.classList.contains('add')) {
+		resultCalc = $number1 + $number2;
+		this.classList.remove('add');
+	}
+	if (this.classList.contains('subtraction')) {
+		resultCalc = $number1 - $number2;
+		this.classList.remove('subtraction');
+	}
+	if (this.classList.contains('multiplication')) {
+		resultCalc = $number1 * $number2;
+		this.classList.remove('multiplication');
+	}
+	if (this.classList.contains('division')) {
+		this.classList.remove('division');
+		if ($number2 !== 0) {
+			resultCalc = $number1 / $number2;
+		} else {
+			alert('Error')
+		}
+	} else {
+		document.getElementsByClassName('formT18')[0].value = 'Not operation';
+		document.getElementsByClassName('formT18')[1].value = 'Not operation';
+	}
+
+	if(!isNaN(resultCalc)) {
+		alert(resultCalc)
+	} 
+});
 
 
 // Task 19

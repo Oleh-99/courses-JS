@@ -4781,24 +4781,37 @@ input[id=box]:checked ~ label[for=box] > i {
   color: #fff;
 }
 
+.tabs {
+  margin-bottom: 900px;
+}
+
 .tagContent {
-  display: none;
   opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  margin-top: -30px;
+  transition: all 0.3s ease;
+  z-index: 0;
 }
 
 .tagContent.active {
-  display: block;
   opacity: 1;
+  visibility: visible;
+  margin-top: 0;
+  z-index: 1;
 }
 
 .question-text,
 .question-textV2 {
-  display: none;
+  transition: all .3s ease;
+  opacity: 0;
+  margin-bottom: -50px;
 }
 
 .question-text.active,
 .question-textV2.active {
-  display: block;
+  opacity: 1;
+  margin-bottom: 0;
 }
 
 .question-inner,

@@ -1,37 +1,41 @@
 
-$('.buttonTag').click(function () { 
-	var btn =  $(this).attr('data-btn');
-	console.log(btn);
-	$('.buttonTag').removeClass('active')
-	$(this).toggleClass('active').parent().siblings();
 
-	$('.tagContent').each(function() {
-		$(this).removeClass('active');
-		if (btn === $(this).attr('data-value')) {
-			$(this).addClass('active');
-		}
+$('.tabs').each(function () {
+	let product = $(this);
+	let $tabs = product.find('.buttonTag');
+
+	$tabs.on('click', function (e) {
+		e.preventDefault();
+		let $this = $(this);
+		let $tabsCategory = $this.data('category');
+		let $tabContent = product.find('.tabContent[data-value=' + $tabsCategory + ']');
+
+		$this.parent().siblings().find('.buttonTag').removeClass('active');
+		$this.addClass('active');
+
+		$tabContent.siblings().removeClass('active');
+		$tabContent.addClass('active');
 	})
-});
+})
 
 
-// ACARDION
+// ACCORDION
 
 $('.questions-inner').each (function() {
-	$(this).find('.question').click(function () {
-		var wrapper = $(this).find('.question')
+	$(this).find('.question').on('click', function () {
+		$this = $(this);
 
-		if ($(this).parent().attr('data-version')  === 'all' ) {
-			$(this).toggleClass('active').find('.question-text').slideToggle();
-		}
-		if ($(this).parent().attr('data-version')  === 'one') {
-			if ($(this).hasClass('active')) {
-				$(this).removeClass('active');
-				$(this).find('.question-text').slideToggle();
+		if ('one' === $this.parent().data('version')) {
+			if ($this.hasClass('active')) {
+				$this.removeClass('active');
+				$this.find('.question-text').slideToggle();
 			} else {
-				$(this).siblings().removeClass('active')
-				$(this).siblings().find('.question-text').slideUp();
-				$(this).addClass('active').find('.question-text').slideToggle();
+				$this.siblings().removeClass('active');
+				$this.siblings().find('.question-text').slideUp();
+				$this.addClass('active').find('.question-text').slideToggle();
 			}
+		} else {
+			$this.toggleClass('active').find('.question-text').slideToggle();
 		}
 	});
 })

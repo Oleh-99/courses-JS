@@ -3416,9 +3416,6 @@ td, th {
 .recomend-products-inner ul li:last-child {
   margin-right: 0;
 }
-.recomend-products-inner ul li:hover a, .recomend-products-inner ul li.active a {
-  border-color: rgba(17, 105, 182, 0.9);
-}
 .recomend-products-inner ul a {
   color: #333333;
   border-bottom: 2px solid rgba(17, 105, 182, 0);
@@ -4764,6 +4761,7 @@ input[id=box]:checked ~ label[for=box] > i {
 }
 
 .buttonTag {
+  display: inline-block;
   height: 40px;
   background: transparent;
   color: #000;
@@ -4781,11 +4779,16 @@ input[id=box]:checked ~ label[for=box] > i {
   color: #fff;
 }
 
+.buttonTag:hover {
+  background: #1169b6b7;
+  color: #fff;
+}
+
 .tabs {
   margin-bottom: 900px;
 }
 
-.tagContent {
+.tabContent {
   opacity: 0;
   visibility: hidden;
   position: absolute;
@@ -4794,7 +4797,7 @@ input[id=box]:checked ~ label[for=box] > i {
   z-index: 0;
 }
 
-.tagContent.active {
+.tabContent.active {
   opacity: 1;
   visibility: visible;
   margin-top: 0;
@@ -4818,20 +4821,17 @@ input[id=box]:checked ~ label[for=box] > i {
   margin-bottom: 0;
 } */
 
-.question-inner,
-.question-innerV2 {
+.question-inner {
   cursor: pointer;
 }
 
-.question-inner i,
-.question-innerV2 i {
+.question-inner i {
   transition: all 0.3s ease;
 }
 
 
 
-.question.active i,
-.question-innerV2.active i  {
+.question.active i  {
   transform: rotate(180deg);
 }
 
@@ -4840,7 +4840,6 @@ input[id=box]:checked ~ label[for=box] > i {
   max-width: 600px;
   height: 387px;
   margin: 0 auto;
-  background: #7f7f7f;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -4865,22 +4864,17 @@ input[id=box]:checked ~ label[for=box] > i {
 .fotoNew.active {
   left: 0;
   right: 0;
-  top: 0;
-  bottom: 0;
 }
 
 .fotoNew.prev {
   left: auto;
   right: 100%;
-  top: 0;
-  bottom: 0;
+  width: 600px;
 }
 
 .fotoNew.next {
   left: 100%;
   right: auto;
-  top: 0;
-  bottom: 0;
+  width: 600px;
 }
 
-/*# sourceMappingURL=style.css.map */

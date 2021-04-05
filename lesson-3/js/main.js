@@ -1,14 +1,14 @@
 
 $('.buttonTag').click(function () { 
-	var btn =  $(this).attr('data-btn')
-	
+	var btn =  $(this).attr('data-btn');
+	console.log(btn);
 	$('.buttonTag').removeClass('active')
-	$(this).addClass('active')
+	$(this).toggleClass('active').parent().siblings();
 
 	$('.tagContent').each(function() {
 		$(this).removeClass('active');
 		if (btn === $(this).attr('data-value')) {
-			$(this).addClass('active')
+			$(this).addClass('active');
 		}
 	})
 });
@@ -16,77 +16,117 @@ $('.buttonTag').click(function () {
 
 // ACARDION
 
-$('.question').click(function () {
-	$(this).find('.question-text').slideToggle();
+$('.questions-inner').each (function() {
+	$(this).find('.question').click(function () {
+		var wrapper = $(this).find('.question')
 
-	if ($(this).hasClass('active')) {
-		$(this).removeClass('active');
-	} else {
-		$(this).addClass('active')
-	}
-});
+		if ($(this).parent().attr('data-version')  === 'all' ) {
+			$(this).toggleClass('active').find('.question-text').slideToggle();
+		}
+		if ($(this).parent().attr('data-version')  === 'one') {
+			if ($(this).hasClass('active')) {
+				$(this).removeClass('active');
+				$(this).find('.question-text').slideToggle();
+			} else {
+				$(this).siblings().removeClass('active')
+				$(this).siblings().find('.question-text').slideUp();
+				$(this).addClass('active').find('.question-text').slideToggle();
+			}
+		}
+	});
+})
 
-// // ACARDION
+// Slider 
 
-// var $buttonAcard = document.getElementsByClassName('question-inner');
-// var $textAcard = document.getElementsByClassName('question-text');
+$('.arrow-inner-wrapper').each (function () {
+	$(this).find('.arrow-inner').click(function () {
+		var $foto = $('.fotoNew');
+		var number;
 
-// for (let i = 0; i < $buttonAcard.length; i++) {
-// 	var $btnAcard = $buttonAcard[i];
-// 	$btnAcard.addEventListener('click', function () { 
+		number = $('.fotoNew.active').index();
+		$foto.removeClass('active')
+		$foto.removeClass('prev')
+		$foto.removeClass('next')
 
-// 		for (let d = 0; d <  $buttonAcard.length; d++) {
-// 			if ($buttonAcard[d].classList.contains('active')) {
-// 				$buttonAcard[d].classList.remove('active');
-// 			}
-// 		}
+		if ($(this).attr('data-direction') === 'left') {
+			number --
+		}
 
-// 		for (let k = 0; k <	$textAcard.length; k++) {
-// 			var textInner = $textAcard[k];
+		if ($(this).attr('data-direction') === 'right') {
+			number ++
+		}
 
-// 			if ($textAcard[k].classList.contains('active')) {
-// 				textInner.classList.remove('active');
-// 				this.classList.remove('active');
+		if(number === $foto.length) {
+			number = 0;
+		}
 
-// 			} else {
-				
-// 				if (textInner.dataset.value === this.dataset.btn) {
-// 					textInner.classList.add('active');
-// 					$buttonAcard[i].classList.add('active');
-// 				}
-// 			}
-// 		}	
-// 	});
-// }
+		$foto.eq(number).addClass('active');
+		$foto.eq(number - 1).addClass('prev');
+		$foto.eq(number + 1).addClass('next'); 
+
+		if(number === $foto.length - 1) {
+			$foto.eq(0).addClass('next'); 
+		}
+		
+
+		
+		// if (foto.hasClass('next')) {
+		// 	number = $('next').index();
+		// 	foto.removeClass('prev').removeClass('next')
+		// } else {
+		// 	number = foto.index();
+		// }
+
+		
+
+		// console.log(number);
+
+		
+		// $('.fotoNew').eq(number - 1).addClass('prev');
+		// $('.fotoNew').eq(number + 1).addClass('next');
+		// if (number === 0) {
+		// 	$('.fotoNew').eq(foto.length).addClass('prev');
+		// }
+
+		// if (number === foto.length) {
+		// 	$('.fotoNew').eq(0).addClass('next');
+		// }
+		
 
 
-// // ACARDION V. 2
+		// for (let i = 0; i <  foto.length; i++) {
+		// 	if($(this).hasClass('active')) {
+		// 		$(this).prev().addClass('prev')
+		// 		$(this).next().addClass('next')
+		// 		console.log(i);
+
+		// 		if (0 === i) {
+		// 			foto.last().addClass('prev')
+		// 		}
+
+		// 		if (foto.length === i) {
+		// 			foto.first().addClass('next')
+		// 		}
+		// 	}
+
+		// 	console.log(i);
+		// }
+
+		// if()
+		// $('.fotoNew').each (function () {
+		// 	if($(this).hasClass('active')) {
+		// 		number = $(this).indexOf()
+		// 	}
+		
+		//console.log(foto.indexOf());
+		// console.log($(this).attr('data-direction'));
+		// console.log(number);
+		
+	})
+})
 
 
-// var $buttonAcardV2 = document.getElementsByClassName('question-innerV2');
-// var $textAcardV2 = document.getElementsByClassName('question-textV2');
 
-// for (let i = 0; i < $buttonAcardV2.length; i++) {
-// 	var $btnAcardV2 = $buttonAcardV2[i];
-// 	$btnAcardV2.addEventListener('click', function () { 
-
-// 		for (let k = 0; k <	$textAcardV2.length; k++) {
-// 			var textInnerV2 = $textAcardV2[k];
-
-// 			if (textInnerV2.dataset.value === this.dataset.btn) {
-
-// 				if (textInnerV2.classList.contains('active')) {
-// 					textInnerV2.classList.remove('active');
-// 					$buttonAcardV2[i].classList.remove('active');
-// 				} else {
-// 					textInnerV2.classList.add('active');
-// 					$buttonAcardV2[i].classList.add('active');
-// 				}
-				
-// 			}							
-// 		}
-// 	});
-// }
 
 // // Slider 
 

@@ -44,11 +44,11 @@ $('.questions-inner').each (function() {
 $('.arrow-inner-wrapper').each (function () {
 	$(this).find('.arrow-inner').on('click', function () {
 		let $this =  $(this);
-		let $foto = $('.fotoNew')
+		let $foto = $('.arrow-inner-wrapper').find('.fotoNew');
 		let activeSlide = $this.parent().find('.wrapper > .active');
 		$foto.removeClass('prev');
 
-		if ('left' === $this.attr('data-direction')) {
+		if ('left' === $this.data('direction')) {
 			if (0 === activeSlide.index()) {
 				activeSlide.removeClass('active');
 				$foto.last().addClass('active').prev().addClass('prev');
@@ -62,7 +62,7 @@ $('.arrow-inner-wrapper').each (function () {
 			}
 		}
 
-		if ('right' === $this.attr('data-direction')) {
+		if ('right' === $this.data('direction')) {
 			if ($foto.length === activeSlide.index() + 1) {
 				activeSlide.removeClass('active').addClass('prev');
 				$foto.first().addClass('active');

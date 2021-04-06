@@ -49,7 +49,7 @@ $('.arrow-inner-wrapper').each (function () {
 		$foto.removeClass('prev');
 
 		if ('left' === $this.attr('data-direction')) {
-			if (activeSlide.index() === 0) {
+			if (0 === activeSlide.index()) {
 				activeSlide.removeClass('active');
 				$foto.last().addClass('active').prev().addClass('prev');
 			} else {

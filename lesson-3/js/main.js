@@ -18,7 +18,6 @@ $('.tabs').each(function () {
 	})
 })
 
-
 // ACCORDION
 
 $('.questions-inner').each (function() {

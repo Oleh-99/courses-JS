@@ -1,4 +1,4 @@
-
+// Tabs
 
 $('.tabs').each(function () {
 	let product = $(this);
@@ -23,7 +23,7 @@ $('.tabs').each(function () {
 
 $('.questions-inner').each (function() {
 	$(this).find('.question').on('click', function () {
-		$this = $(this);
+		let $this = $(this);
 
 		if ('one' === $this.parent().data('version')) {
 			if ($this.hasClass('active')) {
@@ -43,132 +43,37 @@ $('.questions-inner').each (function() {
 // Slider 
 
 $('.arrow-inner-wrapper').each (function () {
-	$(this).find('.arrow-inner').click(function () {
-		var $foto = $('.fotoNew');
-		var number;
+	$(this).find('.arrow-inner').on('click', function () {
+		let $this =  $(this);
+		let $foto = $('.fotoNew')
+		let activeSlide = $this.parent().find('.wrapper > .active');
+		let predSlider = activeSlide.prev();
+		let nextSlider = activeSlide.next();
+		$foto.removeClass('prev');
 
-		number = $('.fotoNew.active').index();
-		$foto.removeClass('active')
-		$foto.removeClass('prev')
-		$foto.removeClass('next')
+		if ('left' === $this.attr('data-direction')) {
+			if (activeSlide.index() === 0) {
+				activeSlide.removeClass('active')
+				$foto.last().addClass('active').prev().addClass('prev')
+			} else {
+				activeSlide.removeClass('active')
+				predSlider.addClass('active').prev().addClass('prev')
 
-		if ($(this).attr('data-direction') === 'left') {
-			number --
+				if (1 === activeSlide.index()) {
+					$foto.last().addClass('prev')
+				}
+			}
 		}
 
-		if ($(this).attr('data-direction') === 'right') {
-			number ++
+		if ('right' === $this.attr('data-direction')) {
+			if ($foto.length === activeSlide.index() + 1) {
+				activeSlide.removeClass('active').addClass('prev')
+				$foto.first().addClass('active')
+			} else {
+				activeSlide.removeClass('active').addClass('prev')
+				nextSlider.addClass('active')
+			}
+			
 		}
-
-		if(number === $foto.length) {
-			number = 0;
-		}
-
-		$foto.eq(number).addClass('active');
-		$foto.eq(number - 1).addClass('prev');
-		$foto.eq(number + 1).addClass('next'); 
-
-		if(number === $foto.length - 1) {
-			$foto.eq(0).addClass('next'); 
-		}
-		
-
-		
-		// if (foto.hasClass('next')) {
-		// 	number = $('next').index();
-		// 	foto.removeClass('prev').removeClass('next')
-		// } else {
-		// 	number = foto.index();
-		// }
-
-		
-
-		// console.log(number);
-
-		
-		// $('.fotoNew').eq(number - 1).addClass('prev');
-		// $('.fotoNew').eq(number + 1).addClass('next');
-		// if (number === 0) {
-		// 	$('.fotoNew').eq(foto.length).addClass('prev');
-		// }
-
-		// if (number === foto.length) {
-		// 	$('.fotoNew').eq(0).addClass('next');
-		// }
-		
-
-
-		// for (let i = 0; i <  foto.length; i++) {
-		// 	if($(this).hasClass('active')) {
-		// 		$(this).prev().addClass('prev')
-		// 		$(this).next().addClass('next')
-		// 		console.log(i);
-
-		// 		if (0 === i) {
-		// 			foto.last().addClass('prev')
-		// 		}
-
-		// 		if (foto.length === i) {
-		// 			foto.first().addClass('next')
-		// 		}
-		// 	}
-
-		// 	console.log(i);
-		// }
-
-		// if()
-		// $('.fotoNew').each (function () {
-		// 	if($(this).hasClass('active')) {
-		// 		number = $(this).indexOf()
-		// 	}
-		
-		//console.log(foto.indexOf());
-		// console.log($(this).attr('data-direction'));
-		// console.log(number);
-		
 	})
 })
-
-
-
-
-// // Slider 
-
-// var $buttonSlider = document.getElementsByClassName('arrow-inner');
-// var $foto = document.getElementsByClassName('fotoNew');
-
-// for (let i = 0; i < $buttonSlider.length; i++) {
-// 	var $btnSlider = $buttonSlider[i];
-// 	$btnSlider.addEventListener('click', function () { 
-// 		var fotoNumb;
-
-// 		for (let d = 0; d <  $foto.length; d++) {
-// 			if ($foto[d].classList.contains('active')) {
-// 				fotoNumb = d + 1;
-// 				$foto[d].classList.remove('active');
-// 			}
-// 		}
-
-// 		if (this.dataset.direction === '1') {
-// 			fotoNumb ++;
-// 		}
-
-// 		if (this.dataset.direction === '-1') {
-// 			fotoNumb --;
-// 		}
-
-// 		if ($foto.length + 1 <= fotoNumb) {
-// 			fotoNumb = 1;
-// 		}
-
-// 		if (0 === fotoNumb) {
-// 			fotoNumb = $foto.length;
-// 		}
-
-// 		for (let d = 0; d <  $foto.length; d++) {
-// 			if (d + 1 === fotoNumb) {
-// 				$foto[d].classList.add('active');
-// 			}
-// 		}
-// 	});
-// }

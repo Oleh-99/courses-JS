@@ -47,33 +47,30 @@ $('.arrow-inner-wrapper').each (function () {
 		let $this =  $(this);
 		let $foto = $('.fotoNew')
 		let activeSlide = $this.parent().find('.wrapper > .active');
-		let predSlider = activeSlide.prev();
-		let nextSlider = activeSlide.next();
 		$foto.removeClass('prev');
 
 		if ('left' === $this.attr('data-direction')) {
 			if (activeSlide.index() === 0) {
-				activeSlide.removeClass('active')
-				$foto.last().addClass('active').prev().addClass('prev')
+				activeSlide.removeClass('active');
+				$foto.last().addClass('active').prev().addClass('prev');
 			} else {
-				activeSlide.removeClass('active')
-				predSlider.addClass('active').prev().addClass('prev')
+				activeSlide.removeClass('active');
+				activeSlide.prev().addClass('active').prev().addClass('prev');
 
 				if (1 === activeSlide.index()) {
-					$foto.last().addClass('prev')
+					$foto.last().addClass('prev');
 				}
 			}
 		}
 
 		if ('right' === $this.attr('data-direction')) {
 			if ($foto.length === activeSlide.index() + 1) {
-				activeSlide.removeClass('active').addClass('prev')
-				$foto.first().addClass('active')
+				activeSlide.removeClass('active').addClass('prev');
+				$foto.first().addClass('active');
 			} else {
-				activeSlide.removeClass('active').addClass('prev')
-				nextSlider.addClass('active')
+				activeSlide.removeClass('active').addClass('prev');
+				activeSlide.next().addClass('active');
 			}
-			
 		}
 	})
 })

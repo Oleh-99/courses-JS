@@ -107,19 +107,14 @@ $(document).ready(function() {
 						arrPost['userId_' + id] = data;
 					}
 				})
-			} else {
-				console.log("1" + ['userId_' + id]);
-			}
-
-			console.log(arrPost['userId_' + id]);
-			console.log(arrPost);
-
+			} 
+			
 			for (let index = 0; index < arrPost[`userId_${id}`].length; index++) {
-				if (arrPost[index].userId === id) {
+				if (arrPost[`userId_${id}`][index].userId === id) {
 					$('.posts .row').append(`
-						<div class="col-4 post" data-post="${arrPost[index].id}">
-							<div class="title">${arrPost[index].title}</div>
-							<div class="text-comm">${arrPost[index].body} ...</div>
+						<div class="col-4 post" data-post="${arrPost[`userId_${id}`][index].id}">
+							<div class="title">${arrPost[`userId_${id}`][index].title}</div>
+							<div class="text-comm">${arrPost[`userId_${id}`][index].body} ...</div>
 						</div>
 					`)
 				}

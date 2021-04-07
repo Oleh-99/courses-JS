@@ -89,14 +89,6 @@ $(document).ready(function() {
 			$('.album-foto').remove();
 			$('.todo').remove();
 			
-			// for (let index = 0; index < arrPost.length; index++) {
-			// 	if (arrPost[index].userId === id) {
-			// 		availability = true;
-			// 	}
-			// }
-
-
-
 		
 			if (typeof arrPost['userId_' + id] === 'undefined') {
 				$.ajax({
@@ -108,7 +100,7 @@ $(document).ready(function() {
 					}
 				})
 			} 
-			
+
 			for (let index = 0; index < arrPost[`userId_${id}`].length; index++) {
 				if (arrPost[`userId_${id}`][index].userId === id) {
 					$('.posts .row').append(`
@@ -119,6 +111,7 @@ $(document).ready(function() {
 					`)
 				}
 			}
+			
 			setTimeout(function () {
 				$('.loader').remove()
 			}, 1000);

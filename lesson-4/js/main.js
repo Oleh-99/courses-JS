@@ -2,7 +2,7 @@
 $(document).ready(function() {
 
 	var arrData = [ ];
-	var arrPost = [ ];
+	
 	var arrComm = [ ]
 	var arrAlbum = [ ];
 	var arrFoto = [ ];
@@ -47,21 +47,21 @@ $(document).ready(function() {
 
 					}
 
-					$.ajax({
-						url: `https://jsonplaceholder.typicode.com/posts?userId=${arrData[0].id}`, 
-						dataType : "json",
-						success: function (data) { 
-							for (let index = 0; index < data.length; index++) {
-								arrPost.push(data[index]);
-								$('.posts .row').append(`
-									<div class="col-4 post" data-post="${data[index].id}">
-										<div class="title">${data[index].title}</div>
-										<div class="text-comm">${data[index].body} ...</div>
-									</div>`
-								)
-							}
-						}
-					})
+					// $.ajax({
+					// 	url: `https://jsonplaceholder.typicode.com/posts?userId=${arrData[0].id}`, 
+					// 	dataType : "json",
+					// 	success: function (data) { 
+					// 		for (let index = 0; index < data.length; index++) {
+					// 			arrPost.push(data[index]);
+					// 			$('.posts .row').append(`
+					// 				<div class="col-4 post" data-post="${data[index].id}">
+					// 					<div class="title">${data[index].title}</div>
+					// 					<div class="text-comm">${data[index].body} ...</div>
+					// 				</div>`
+					// 			)
+					// 		}
+					// 	}
+					// })
 				}
 			});
 		};
@@ -69,8 +69,11 @@ $(document).ready(function() {
 
 
 	function addPostUser() {
+		var arrPost = {};
 		$(document).on('click', '.btn-posts', function(e) {
 			e.preventDefault();
+			
+
 			let $this = $(this)
 			let $user = $this.parent();
 			let id = $user.data('id');
@@ -86,26 +89,32 @@ $(document).ready(function() {
 			$('.album-foto').remove();
 			$('.todo').remove();
 			
-			for (let index = 0; index < arrPost.length; index++) {
-				if (arrPost[index].userId === id) {
-					availability = true;
-				}
-			}
+			// for (let index = 0; index < arrPost.length; index++) {
+			// 	if (arrPost[index].userId === id) {
+			// 		availability = true;
+			// 	}
+			// }
+
+
+
 		
-			if (!availability) {
+			if (typeof arrPost['userId_' + id] === 'undefined') {
 				$.ajax({
 					url: `https://jsonplaceholder.typicode.com/posts?userId=${id}`,
 					dataType : "json",
 					async: false,
 					success: function (data) { 
-						for (let index = 0; index < data.length; index++) {
-							arrPost.push(data[index]);
-						}
+						arrPost['userId_' + id] = data;
 					}
 				})
+			} else {
+				console.log("1" + ['userId_' + id]);
 			}
 
-			for (let index = 0; index < arrPost.length; index++) {
+			console.log(arrPost['userId_' + id]);
+			console.log(arrPost);
+
+			for (let index = 0; index < arrPost[`userId_${id}`].length; index++) {
 				if (arrPost[index].userId === id) {
 					$('.posts .row').append(`
 						<div class="col-4 post" data-post="${arrPost[index].id}">

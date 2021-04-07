@@ -1,102 +1,185 @@
-var arrData = [ ];
-var arrPost = [ ];
-var arrComm = [ ];
+$(document).ready(function() {
 
-if (0 === arrData.length) {
-	$.ajax({
-		url: 'https://jsonplaceholder.typicode.com/users', 
-		dataType : "json",
-		async: false,
-		success: function (info) { 
-		
-			for (let index = 0; index < info.length; index++) {
-				arrData.push(info[index]);
-				let id = info[index].id;
-				let foto = '<div><img src="merak-testimonials-1.jpg" alt=""></div>';
-				let name = '<div class="name">' + info[index].name + '</div>';
-				let username = '<div class="username">' + info[index].username + '</div>';
-				let table = '<table><tbody><tr><td>Email: </td><td>' + info[index].email + '</td></tr><tr><td>Phone:</td><td>' + info[index].phone + '</td></tr><tr><td>Company:</td><td>' + info[index].company.name + '</td></tr></tbody></table>';
-				$('.content').append('<div class="card" data-id="' + id + '">'+ foto + name + username + table + '</div>');
-			}
-		}
-	})
-}
-
-$('.card').each (function() {
-	$(this).on('click', function () {
-		let $this = $(this);
-		let id = $this.data('id');
-
-		$('.card').removeClass('active');
-		$this.addClass('active');
-		$('.post').remove();
+	var arrData = [ ];
+	var arrPost = [ ];
+	var arrAlbum = [ ];
+	var arrtodo = [ ];
 
 
-		if (0 === arrPost.length) {
+	function addUsers () {
+		if (0 === arrData.length) {
 			$.ajax({
-				url: 'https://jsonplaceholder.typicode.com/posts', 
+				url: 'https://jsonplaceholder.typicode.com/users', 
 				dataType : "json",
 				async: false,
-				success: function (info) { 
-					for (let index = 0; index < info.length; index++) {
-						arrPost.push(info[index]);
-						if (info[index].userId === id) {
-							let postId = info[index].id;
-							let title = '<div class="title">' + info[index].title + '</div>';
-							let body = '<div class="text-comm">' + info[index].body + '...</div>';
-							$('.posts').append('<div class="post" data-post="' +  postId + '">' + title +  body + '</div>');
+				success: function (data) { 
+				
+					for (let index = 0; index < data.length; index++) {
+						arrData.push(data[index]);
+						$('.users').append(
+							`<div class="user" data-id="${data[index].id}">
+								<div><img src="merak-testimonials-1.jpg" alt=""></div>
+								<div class="name">${data[index].name}</div>
+								<div class="username">${data[index].username}</div>
+								<table>
+									<tbody>
+										<tr>
+											<td>Email: </td>
+											<td>${data[index].email}</td>
+										</tr>
+										<tr>
+											<td>Phone: </td>
+											<td>${data[index].phone}</td>
+										</tr>
+										<tr>
+											<td>Company: </td>
+											<td>${data[index].company.name}</td>
+										</tr>
+									</tbody>
+								</table>
+								<button class="btn btn-posts">Posts</button>
+								<button class="btn btn-albums">Albums</button>
+								<button class="btn btn-todos">Todos</button>
+							</div>`
+						);
+
+					}
+
+					$.ajax({
+						url: `https://jsonplaceholder.typicode.com/posts?userId=${arrData[0].id}`, 
+						dataType : "json",
+						async: false,
+						success: function (data) { 
+							for (let index = 0; index < data.length; index++) {
+								$('.posts .row').append(`
+									<div class="col-4 post" data-post="${data[index].id}">
+										<div class="title">${data[index].title}</div>
+										<div class="text-comm">${data[index].body} ...</div>
+									</div>
+								`)
+							}
+							
+						}
+					})
+				}
+			});
+		};
+	}
+
+	function addPostUser() {
+		$(document).on('click', '.btn-posts', function() {
+			let $this = $(this)
+			let $user = $this.parent();
+			let id = $user.data('id');
+
+
+			$('.btn').removeClass('active');
+			$('.user').removeClass('active');
+			$this.addClass('active');
+			$user.addClass('active');
+			$('.post').remove();
+			
+			if (0 === arrPost.length) {
+				$.ajax({
+					url: `https://jsonplaceholder.typicode.com/posts`, 
+					dataType : "json",
+					async: false,
+					success: function (data) { 
+						for (let index = 0; index < data.length; index++) {
+							arrPost.push(data[index]);
 						}
 					}
-				}
-			})
-		} else {
+				})
+			}
+
 			for (let index = 0; index < arrPost.length; index++) {
 				if (arrPost[index].userId === id) {
-					let postId = arrPost[index].id;
-					let title = '<div class="title">' + arrPost[index].title + '</div>';
-					let body = '<div class="text-comm">' + arrPost[index].body + '...</div>';
-					$('.posts').append('<div class="post" data-post="' +  postId + '">' + title +  body + '</div>');
+					$('.posts .row').append(`
+						<div class="col-4 post" data-post="${arrPost[index].id}">
+							<div class="title">${arrPost[index].title}</div>
+							<div class="text-comm">${arrPost[index].body} ...</div>
+						</div>
+					`)
 				}
 			}
-		}
-		
-	});
-});
+		});
+	}
 
-$('.post').each (function() {
-	$(this).on('click', function () {
-		let $this = $(this);
-		let id = $this.data('post');
-		$('.post').removeClass('active');
-		$this.addClass('active');
-		console.log("1");
-		//if (0 === arrComm.length) {
-			$.ajax({
-				url: 'https://jsonplaceholder.typicode.com/comments', 
-				dataType : "json",
-				async: false,
-				success: function (info) { 
-					for (let index = 0; index < info.length; index++) {
-						arrComm.push(info[index]);
-						if (info[index].postId === id) {
-							let commId = info[index].id;
-							let name = '<div>' + info[index].name + '</div>';
-							let email = '<div>' + info[index].email + '</div>';
-							let body = '<div>' + info[index].body + '</div>';
-							$('.post').append('<div class="comm" data-comm="' +  commId + '">' + name + email +  body + '</div>');
+	function addComment () {
+		$(document).on('click', '.post', function() {
+			let $this = $(this);
+			let id = $this.data('post');
+
+			if($this.hasClass('active')) {
+				$this.removeClass('active');
+				$this.find('.comm').remove()
+			} else {
+				$('.post').removeClass('active');
+				$this.addClass('active');
+				$.ajax({
+					url: `https://jsonplaceholder.typicode.com/comments?postId=${id}`, 
+					dataType : "json",
+					async: false,
+					success: function (data) { 
+						for (let index = 0; index < data.length; index++) {;
+							$this.append(
+								`<div class="comm" data-comm="${data[index].id}">
+									<div class="comm-name">${data[index].name}</div>
+									<div class="comm-email">${data[index].email}</div>
+									<div class="comm-body">${data[index].body}</div>
+								</div>`
+							);
 						}
 					}
+				})
+			}
+		});
+	}
+
+	function addAlbumsUser() {
+		$(document).on('click', '.btn-albums', function() {
+			let $user = $(this).parent();
+			let id = $user.data('id');
+		
+			$('.user').removeClass('active');
+			$user.addClass('active');
+			$('.post').remove();
+			
+			if (0 === arrPost.length) {
+				$.ajax({
+					url: `https://jsonplaceholder.typicode.com/posts`, 
+					dataType : "json",
+					async: false,
+					success: function (data) { 
+						for (let index = 0; index < data.length; index++) {
+							arrPost.push(data[index]);
+						}
+					}
+				})
+			}
+
+			for (let index = 0; index < arrPost.length; index++) {
+				if (arrPost[index].userId === id) {
+					$('.posts .row').append(`
+						<div class="col-4 post" data-post="${arrPost[index].id}">
+							<div class="title">${arrPost[index].title}</div>
+							<div class="text-comm">${arrPost[index].body} ...</div>
+						</div>
+					`)
 				}
-			})
-	//	} else {
-			// for (let index = 0; index < arrPost.length; index++) {
-			// 	if (arrPost[index].userId === id) {
-			// 		let postId = arrPost[index].id;
-			// 		let title = '<div class="title">' + arrPost[index].title + '</div>';
-			// 		let body = '<div class="text-comm">' + arrPost[index].body + '...</div>';
-			// 		$('.posts').append('<div class="post" data-post="' +  postId + '">' + title +  body + '</div>');
-			// 	}
-			// }
-		//}
-	});
+			}
+		});
+	}
+
+
+	addUsers ();
+	addPostUser();
+	addComment ();
+	// addAlbumsUser();
+
+
+
+
+
+
 })

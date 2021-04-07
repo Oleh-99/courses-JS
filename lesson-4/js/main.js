@@ -3,7 +3,7 @@ $(document).ready(function() {
 
 	var arrData = [ ];
 	
-	var arrComm = [ ]
+	
 	var arrAlbum = [ ];
 	var arrFoto = [ ];
 	var arrTodo = [ ];
@@ -69,7 +69,7 @@ $(document).ready(function() {
 
 
 	function addPostUser() {
-		var arrPost = {};
+		var arrPost = [];
 		$(document).on('click', '.btn-posts', function(e) {
 			e.preventDefault();
 			
@@ -77,7 +77,6 @@ $(document).ready(function() {
 			let $this = $(this)
 			let $user = $this.parent();
 			let id = $user.data('id');
-			let availability = false;
 
 			$('.content').append('<div class="loader"></div>');
 			$('.btn').removeClass('active');
@@ -119,6 +118,7 @@ $(document).ready(function() {
 	}
 
 	function addComment () {
+		var arrComm = [];
 		$(document).on('click', '.post', function() {
 			let $this = $(this);
 			let id = $this.data('post');
@@ -132,32 +132,24 @@ $(document).ready(function() {
 				$('.post').removeClass('active');
 				$this.addClass('active');
 
-				for (let index = 0; index < arrComm.length; index++) {
-					if (arrComm[index].postId === id) {
-						availability = true;
-					}
-				}
-			
-				if (!availability) {
+				if (typeof arrComm['postId_' + id] === 'undefined') {
 					$.ajax({
 						url: `https://jsonplaceholder.typicode.com/comments?postId=${id}`, 
 						dataType : "json",
 						async: false,
 						success: function (data) { 
-							for (let index = 0; index < data.length; index++) {;
-								arrComm.push(data[index]);
-							}
+							arrComm['postId_' + id] = data;
 						}
 					})
-				}
-
-				for (let index = 0; index < arrComm.length; index++) {
-					if (arrComm[index].postId === id) {
+				} 
+	
+				for (let index = 0; index < arrPost[`postId_${id}`].length; index++) {
+					if (arrComm[`postId_${id}`][index].userId === id) {
 						$this.append(
-							`<div class="comm" data-comm="${arrComm[index].id}">
-								<div class="comm-name">${arrComm[index].name}</div>
-								<div class="comm-email">${arrComm[index].email}</div>
-								<div class="comm-body">${arrComm[index].body}</div>
+							`<div class="comm" data-comm="${arrComm[`postId_${id}`][index].id}">
+								<div class="comm-name">${arrComm[`postId_${id}`][index].name}</div>
+								<div class="comm-email">${arrComm[`postId_${id}`][index].email}</div>
+								<div class="comm-body">${arrComm[`postId_${id}`][index].body}</div>
 							</div>`
 						);
 					}
@@ -187,30 +179,22 @@ $(document).ready(function() {
 			$('.album-foto').remove();
 			$('.todo').remove();
 
-			for (let index = 0; index < arrAlbum.length; index++) {
-				if (arrAlbum[index].userId === id) {
-					availability = true;
-				}
-			}
-			
-			if (!availability) {
+			if (typeof arrAlbum['userId_' + id] === 'undefined') {
 				$.ajax({
-					url: `https://jsonplaceholder.typicode.com/albums?userId=${id}`, 
+					url: `https://jsonplaceholder.typicode.com/albums?userId=${id}`,  
 					dataType : "json",
 					async: false,
 					success: function (data) { 
-						for (let index = 0; index < data.length; index++) {
-							arrAlbum.push(data[index]);
-						}
+						arrAlbum['userId_' + id] = data;
 					}
 				})
-			}
+			} 
 
-			for (let index = 0; index < arrAlbum.length; index++) {
-				if (arrAlbum[index].userId === id) {
+			for (let index = 0; index < arrAlbum[`userId_${id}`].length; index++) {
+				if (arrAlbum[`userId_${id}`][index].userId === id) {
 					$('.posts .row').append(`
-						<div class="col-3 album" data-albums="${arrAlbum[index].id}">
-							<div class="title">${arrAlbum[index].title}</div>
+						<div class="col-3 album" data-albums="${arrAlbum[`userId_${id}`][index].id}">
+							<div class="title">${arrAlbum[`userId_${id}`][index].title}</div>
 						</div>
 					`)
 				}

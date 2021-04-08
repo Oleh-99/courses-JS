@@ -53,10 +53,16 @@
 		var arrPost = [];
 		$(document).on('click', '.btn-posts', function(e) {
 			e.preventDefault();
+
+			
 			
 			let $this = $(this);
 			let $user = $this.parent();
 			let id = $user.data('id');
+
+			if($this.hasClass('active')) {
+				return false;
+			}
 
 			removeContent();
 			$this.addClass('active');
@@ -129,6 +135,10 @@
 			let $user = $this.parent();
 			let id = $user.data('id');
 
+			if($this.hasClass('active')) {
+				return false;
+			}
+
 			removeContent();
 			$this.addClass('active');
 			$user.addClass('active');
@@ -190,6 +200,10 @@
 			let $this = $(this);
 			let $user = $this.parent();
 			let id = $user.data('id');
+
+			if($this.hasClass('active')) {
+				return false;
+			}
 
 			removeContent ();
 			$this.addClass('active');

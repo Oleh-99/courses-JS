@@ -155,7 +155,7 @@ td:last-child {
 .loader {
 	width: 70px;
 	height: 70px;
-	background: transparent;
+	/* background: transparent; */
 	background-image: url(../Settings.gif);
 	background-size: cover;
 	position: fixed;

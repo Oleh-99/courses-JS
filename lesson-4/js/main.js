@@ -6,10 +6,6 @@
 			loaderShow();
 			$.ajax({
 				url: 'https://jsonplaceholder.typicode.com/users', 
-				async: false,
-				// beforeSend: function() {
-					
-				// },
 				success: function(data) { 
 				
 					for (let index = 0; index < data.length; index++) {
@@ -62,7 +58,6 @@
 			let $user = $this.parent();
 			let id = $user.data('id');
 
-			// $('.content').append('<div class="loader"></div>');
 			removeContent();
 			$this.addClass('active');
 			$user.addClass('active');
@@ -72,12 +67,9 @@
 				$.ajax({
 					url: `https://jsonplaceholder.typicode.com/posts?userId=${id}`,
 					dataType : "json",
-					async: false,
-					// beforeSend: function() {
-						
-					// },
 					success: function (data) { 
 						arrPost['userId_' + id] = data;
+						renderPost(arrPost[`userId_${id}`]);
 					},
 					error: function() {
 						alert('Error');
@@ -85,22 +77,10 @@
 					complete: function() {
 						loaderHide();
 					}
-				})
-			} 
-
-			for (let index = 0; index < arrPost[`userId_${id}`].length; index++) {
-				$('.posts .row').append(`
-					<div class="col-4 post" data-post="${arrPost[`userId_${id}`][index].id}">
-						<div class="title">${arrPost[`userId_${id}`][index].title}</div>
-						<div class="text-comm">${arrPost[`userId_${id}`][index].body} ...</div>
-						<button class="btn btn-comm">View comments</button>
-					</div>`
-				);
-			};
-			
-			// setTimeout(function () {
-			// 	// $('.loader').remove();
-			// }, 1000);
+				});
+			} else {
+				renderPost(arrPost[`userId_${id}`]);
+			} 			
 		});
 	}
 
@@ -111,7 +91,6 @@
 			let $thisParent = $this.parent();
 			let id = $thisParent.data('post');
 
-			// $('.content').append('<div class="loader"></div>');
 			if ($this.hasClass('active')) {
 				$this.removeClass('active').text('View comments');
 				$thisParent.removeClass('active').find('.comm').remove();
@@ -124,12 +103,9 @@
 					$.ajax({
 						url: `https://jsonplaceholder.typicode.com/comments?postId=${id}`, 
 						dataType : "json",
-						async: false,
-						// beforeSend: function() {
-						// 	loaderShow();
-						// },
 						success: function (data) { 
 							arrComm['postId_' + id] = data;
+							renderComment(arrComm[`postId_${id}`], $thisParent);
 						},
 						error: function() {
 							alert('Error');
@@ -137,23 +113,11 @@
 						complete: function() {
 							loaderHide();
 						}
-					})
-				} 
-	
-				for (let index = 0; index < arrComm[`postId_${id}`].length; index++) {
-					$thisParent.append(
-						`<div class="comm" data-comm="${arrComm[`postId_${id}`][index].id}">
-							<div class="comm-name">${arrComm[`postId_${id}`][index].name}</div>
-							<div class="comm-email">${arrComm[`postId_${id}`][index].email}</div>
-							<div class="comm-body">${arrComm[`postId_${id}`][index].body}</div>
-						</div>`
-					);
-				}
+					});
+				} else {
+					renderComment(arrComm[`postId_${id}`], $thisParent);
+				};
 			};
-
-			// setTimeout(function () {
-			// 	// $('.loader').remove()
-			// }, 1000);
 		});
 	}
 
@@ -161,27 +125,22 @@
 		var arrAlbum = [];
 		$(document).on('click', '.btn-albums', function(e) {
 			e.preventDefault();
-			$this = $(this);
+			let $this = $(this);
 			let $user = $this.parent();
 			let id = $user.data('id');
 
-			// $('.content').append('<div class="loader"></div>');
 			removeContent();
 			$this.addClass('active');
 			$user.addClass('active');
 			
-
 			if (typeof arrAlbum['userId_' + id] === 'undefined') {
 				loaderShow();
 				$.ajax({
 					url: `https://jsonplaceholder.typicode.com/albums?userId=${id}`,  
 					dataType : "json",
-					async: false,
-					// beforeSend: function() {
-					// 	loaderShow();
-					// },
 					success: function (data) { 
 						arrAlbum['userId_' + id] = data;
+						renderAlbum(arrAlbum[`userId_${id}`]);
 					},
 					error: function() {
 						alert('Error');
@@ -189,31 +148,17 @@
 					complete: function() {
 						loaderHide();
 					}
-				})
-			} 
-
-			for (let index = 0; index < arrAlbum[`userId_${id}`].length; index++) {
-				$('.posts .row').append(`
-					<div class="col-3 album" data-albums="${arrAlbum[`userId_${id}`][index].id}">
-						<div class="title">${arrAlbum[`userId_${id}`][index].title}</div>
-					</div>
-				`)
+				});
+			} else {
+				renderAlbum(arrAlbum[`userId_${id}`]);
 			};
-
-			// setTimeout(function() {
-			// 	// $('.loader').remove();
-			// }, 1000);
 		});
 	}
-
 
 	function addFotoAlbum() {
 		var arrFoto = [];
 		$(document).on('click', '.album', function() {
-
 			let id = $(this).data('albums');
-
-			//$('.content').append('<div class="loader"></div>');
 			$('.album').remove();
 			
 			if (typeof arrFoto['albumId_' + id] === 'undefined') {
@@ -221,12 +166,9 @@
 				$.ajax({
 					url: `https://jsonplaceholder.typicode.com/photos?albumId=${id}`, 
 					dataType : "json",
-					async: false,
-					// beforeSend: function() {
-					// 	loaderShow();
-					// },
 					success: function (data) { 
 						arrFoto['albumId_' + id] = data;
+						renderFotoAlbum(arrFoto['albumId_' + id]);
 					},
 					error: function() {
 						alert('Error');
@@ -234,20 +176,10 @@
 					complete: function() {
 						loaderHide();
 					}
-				})
-			}
-
-			for (let index = 0; index < arrFoto['albumId_' + id].length; index++) {
-				$('.posts .row').append(`
-					<div class="col-3 album-foto" data-post="${arrFoto['albumId_' + id][index].id}">
-						<div><img src="${arrFoto['albumId_' + id][index].thumbnailUrl}"</div>
-						<div class="title">${arrFoto['albumId_' + id][index].title}</div>
-					</div>
-				`)
-			}
-			// setTimeout(function () {
-			// 	// $('.loader').remove()
-			// }, 1000);
+				});
+			} else {
+				renderFotoAlbum(arrFoto['albumId_' + id]);
+			};
 		});
 	}
 
@@ -255,11 +187,10 @@
 		arrTodo = [];
 		$(document).on('click', '.btn-todos', function(e) {
 			e.preventDefault();
-			$this = $(this);
+			let $this = $(this);
 			let $user = $this.parent();
 			let id = $user.data('id');
 
-			// $('.content').append('<div class="loader"></div>');
 			removeContent ();
 			$this.addClass('active');
 			$user.addClass('active');
@@ -269,12 +200,9 @@
 				$.ajax({
 					url: `https://jsonplaceholder.typicode.com/todos?userId=${id}`, 
 					dataType : "json",
-					async: false,
-					// beforeSend: function() {
-					// 	loaderShow();
-					// },
 					success: function (data) { 
 						arrTodo['userId_' + id] = data;
+						renderTodo(arrTodo['userId_' + id]);
 					},
 					error: function() {
 						alert('Error');
@@ -282,43 +210,91 @@
 					complete: function() {
 						loaderHide();
 					}
-				})
-			}
-
-			for (let index = 0; index < arrTodo['userId_' + id].length; index++) {
-				let check;
-				if ( arrTodo['userId_' + id][index].completed === true) {
-					check = '<input type="checkbox" checked>';
-				} else {
-					check = '<input type="checkbox">';
-				}
-				$('.posts .row').append(`
-					<div class="col-3 todo" data-todo="${arrTodo['userId_' + id][index].id}">
-						<div class="todo-title">${arrTodo['userId_' + id][index].title}</div>
-						${check}
-					</div>`
-				);
-			}
-			// setTimeout(function () {
-			// 	// $('.loader').remove()
-			// }, 1000);
+				});
+			} else {
+				renderTodo(arrTodo['userId_' + id]);
+			};
 		});
 	}
 
-	function removeContent () {
+	function renderPost(arr) {
+		for (let index = 0; index < arr.length; index++) {
+			$('.posts .row').append(
+				`<div class="col-4 post" data-post="${arr[index].id}">
+					<div class="title">${arr[index].title}</div>
+					<div class="text-comm">${arr[index].body} ...</div>
+					<button class="btn btn-comm">View comments</button>
+				</div>`
+			);
+		};
+	}
+
+	function renderComment(arr, parent) {
+		for (let index = 0; index < arr.length; index++) {
+			parent.append(
+				`<div class="comm" data-comm="${arr[index].id}">
+					<div class="comm-name">${arr[index].name}</div>
+					<div class="comm-email">${arr[index].email}</div>
+					<div class="comm-body">${arr[index].body}</div>
+				</div>`
+			);
+		};
+	}
+
+	function renderAlbum(arr) {
+		for (let index = 0; index < arr.length; index++) {
+			$('.posts .row').append(`
+				<div class="col-3 album" data-albums="${arr[index].id}">
+					<div class="title">${arr[index].title}</div>
+				</div>
+			`);
+		};
+	}
+
+	function renderFotoAlbum(arr) {
+		for (let index = 0; index < arr.length; index++) {
+			$('.posts .row').append(`
+				<div class="col-3 album-foto" data-post="${arr[index].id}">
+					<div><img src="${arr[index].thumbnailUrl}"</div>
+					<div class="title">${arr[index].title}</div>
+				</div>
+			`);
+		};
+	}
+
+
+	function renderTodo(arr) {
+		for (let index = 0; index < arr.length; index++) {
+			let check;
+			if (arr[index].completed) {
+				check = '<input type="checkbox" checked>';
+			} else {
+				check = '<input type="checkbox">';
+			};
+			$('.posts .row').append(`
+				<div class="col-3 todo" data-todo="${arr[index].id}">
+					<div class="todo-title">${arr[index].title}</div>
+					${check}
+				</div>`
+			);
+		};
+	}
+
+	function removeContent() {
 		$('.btn').removeClass('active');
 		$('.user').removeClass('active');
 		$('.post').remove();
 		$('.album').remove();
 		$('.album-foto').remove();
 		$('.todo').remove();
-	} 
+	}
 
 	function loaderShow() {
-		$('.loader').show(1000)
+		$('.loader').show()
 	}
+
 	function loaderHide() {
-		$('.loader').hide(1000)
+		$('.loader').hide()
 	}
 
 	$(document).ready(function() {
@@ -328,6 +304,7 @@
 		addUsersAlbums();
 		addFotoAlbum();
 		addUsersTodos();
-		// loaderHide();
+		loaderHide();
 	})
+
 })(jQuery);

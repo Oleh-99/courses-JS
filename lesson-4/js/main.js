@@ -262,7 +262,6 @@
 		};
 	}
 
-
 	function renderTodo(arr) {
 		for (let index = 0; index < arr.length; index++) {
 			let check;

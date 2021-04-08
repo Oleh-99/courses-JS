@@ -80,7 +80,7 @@
 				});
 			} else {
 				renderPost(arrPost[`userId_${id}`]);
-			} 			
+			} 
 		});
 	}
 

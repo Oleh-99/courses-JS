@@ -2,6 +2,7 @@
 $(document).on('click', '.search', function(e) {
 	var id = parseInt($('.input').val())
 
+
 $.ajax({
 	url: `http://api.openweathermap.org/data/2.5/weather?id=${id}&appid=35db184017637f2f4de0b6667c28da23&lang=RU`, 
 	async: false,
@@ -11,10 +12,6 @@ $.ajax({
 	}
 })
 } )
-
-
-
-
 
 
 

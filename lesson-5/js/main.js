@@ -32,7 +32,7 @@ function rendersearchHelp(data) {
 	for (let index = 0; index < data.count; index++) {
 		$('.search-help').append(`
 			<div class="country" data-id="${data.list[index].id}">
-				<div class="search-name">${data.list[index].name},${data.list[index].sys.country}</div>
+				<div class="search-name">${data.list[index].name},${data.list[index].sys.country} <img src="https://www.countryflags.io/${data.list[index].sys.country}/flat/24.png"></div>
 				<div class="search-foto"><img src="http://openweathermap.org/img/wn/${data.list[index].weather[0].icon}@2x.png"></div>
 				<div class="search-temp">${parseInt(data.list[index].main.temp)}°C</div>
 			</div>
@@ -90,7 +90,7 @@ function renderWeather(info) {
 				<div class="col-6">
 					<div class="weather-col1">
 						<div class="name">${info.name}</div>
-						<div>Country: ${info.sys.country}</div>
+						<div class="country-flag">Country: <img src="https://www.countryflags.io/${info.sys.country}/flat/32.png"></div>
 					</div>
 				</div>
 				<div class="col-6">

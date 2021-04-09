@@ -154,9 +154,26 @@ input[type="text"]{
 	color: #000;
 }
 
+.country-flag {
+	display: flex;
+	align-items: center;
+}
+
+.country-flag img {
+	margin-left: 10px;
+}
 
 .search-foto img{
     max-height: 44px;
     margin-top: -12px;
 	margin-bottom: -10px;
+}
+
+.search-name {
+	align-items: center;
+    display: flex;
+}
+
+.search-name img {
+	margin-left: 10px;
 }

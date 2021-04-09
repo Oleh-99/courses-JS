@@ -1,0 +1,9 @@
+https://openweathermap.org/data/2.5/find?q=London&appid=439d4b804bc8187953eb36d2a8c26a02&units=metric
+
+
+https://openweathermap.org/city/2643743
+
+
+https://jqueryui.com/download/all/
+
+http://www.wisdomweb.ru/JQ/ui.php#local

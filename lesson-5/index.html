@@ -6,16 +6,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<title>Document</title>
-	<script charset="utf-8" src="https://api-maps.yandex.ru/1.1/index.xml" type="text/javascript"></script>
-
-	<!-- //<link rel="stylesheet" href="css/style.css"> -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin="" ></script>
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<p>690688  Uman   702550 Lviv  5128638 NewYork</p>
-	<input type="text" class="input">
-	<button class="search">search</button>
-	<div class="content"></div>
-
+	<section class="weather-wrapper">
+		<form class="form-search">
+			<span class="wrapper-input-search">
+				<input type="text" class="input-search">
+			</span>
+			<button class="search">Search</button>
+		</form>
+		<div class="row">
+			<div class="col-6"><div class="content"></div></div>
+			<div class="col-6 map-wrapper"><div id="map"></div></div>
+		</div>
+		
+	</section>
 	<script src="js/jquery-3.6.0.min.js"></script>
 	<script src="js/main.js"></script>
 </body>

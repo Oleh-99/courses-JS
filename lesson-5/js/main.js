@@ -112,7 +112,7 @@ function renderWeather(info) {
 			<div>Clouds ${info.clouds.all} %</div>	
 		</div>
 	`);
-	$('.form-search').append('<button class="btn-value">°F</button>')
+	$('.form-search').append('<button class="btn-value">°F</button>');
 }
 
 function translateValue() {
@@ -130,11 +130,11 @@ function translateValue() {
 			converF($('.temp-feels'));
 		} else {
 			$thisBtn.removeClass('value-C');
-			$thisBtn.addClass('value-F')
+			$thisBtn.addClass('value-F');
 			$thisBtn.text('°C');
 			converC($('.temp'));
-			converC($('.temp-min'))
-			converC($('.temp-max'))
+			converC($('.temp-min'));
+			converC($('.temp-max'));
 			converC($('.temp-feels'));
 		}
 	})
@@ -145,7 +145,7 @@ function converF(el) {
 }
 
 function converC(el) {
-	return el.text(parseInt((parseInt(el.text()) * 1.8) + 32) + '°F')
+	return el.text(parseInt((parseInt(el.text()) * 1.8) + 32) + '°F');
 }
 
 

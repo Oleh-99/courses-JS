@@ -9,6 +9,7 @@
 		
 			if (3 <= $thisInput.length) {
 				if('undefined' === typeof arrDataSearch['conutryName_' + $thisInput]) {
+					showLoader();
 					$.ajax({
 						url: `http://api.openweathermap.org/data/2.5/find?q=${$thisInput}&appid=${apiKey}&units=metric`, 
 						success: function(data) {
@@ -16,6 +17,12 @@
 								arrDataSearch['conutryName_' + $thisInput] = data;
 								rendersearchHelp(arrDataSearch['conutryName_' + $thisInput]);
 							}
+						},
+						complete: function() {
+							hideLoader();
+						},
+						error: function() {
+							alert('Error');
 						}
 					});
 				} else {
@@ -49,11 +56,18 @@
 			let id = $this.data('id');
 
 			if('undefined' === typeof arrSearchHelp['conutryId_' + id]) {
+				showLoader();
 				$.ajax({
 					url: `http://api.openweathermap.org/data/2.5/weather?id=${id}&appid=${apiKey}&lang=RU`, 
 					success: function(data) {
 						arrSearchHelp['conutryId_' + id] = data;
 						renderWeather(arrSearchHelp['conutryId_' + id]);
+					},
+					complete: function() {
+						hideLoader();
+					},
+					error: function() {
+						alert('Error');
 					}
 				});
 			} else {
@@ -137,6 +151,14 @@
 		$('.search-help').remove();
 	}
 
+	function showLoader() {
+		$('.loader').show();
+	}
+
+	function hideLoader() {
+		$('.loader').hide();
+	}
+
 	function initMap(lat, lng) {
 		let map;
 		map = new google.maps.Map(document.getElementById("map"), {
@@ -159,6 +181,12 @@
 			url: `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&lang=RU`, 
 			success: function(data) {
 				renderWeather(data);
+			},
+			complete: function() {
+				hideLoader();
+			},
+			error: function() {
+				alert('Error');
 			}
 		});
 	}

@@ -3,7 +3,7 @@
 	var apiKey = '9bf9f86bcfd64653ba2731b86234811d';
 	var arrCurrency = [];
 
-	function request() {
+	function loaderCurrencies() {
 		$.ajax({
 			url: `http://api.currencylayer.com/list?access_key=${apiKey}`, 
 			success: function(data) {
@@ -22,7 +22,7 @@
 		};
 	}
 
-	function quotes(info) {
+	function processingCurrency(info) {
 		var result;
 
 		if(0 === arrCurrency.length) {
@@ -49,23 +49,26 @@
 		return result;
 	}
 
-	function selectValue() {
-		$('.currency1').on('change', function() {
-			convertValue($('.value-1'), $('.value-2'), $('.currency1'), $('.currency2'));
+	function convertCurrency() {
+		var $value1 = $('.value-1');
+		var $value2 = $('.value-2');
+		var $currency1 = $('.currency1');
+		var $currency2 = $('.currency2');
+
+		$currency1.on('change', function() {
+			convertValue($value1, $value2, $currency1, $currency2);
 		});
 
-		$('.currency2').on('change', function() {
-			convertValue($('.value-2'), $('.value-1'), $('.currency2'), $('.currency1'));
-		});
-	}
-
-	function inputValue() {
-		$('.value-1').on('keyup', function() {
-			convertValue($('.value-2'), $('.value-1'), $('.currency2'), $('.currency1'));
+		$currency2.on('change', function() {
+			convertValue($value2, $value1, $currency2, $currency1);
 		});
 
-		$('.value-2').on('keyup', function() {
-			convertValue($('.value-1'), $('.value-2'), $('.currency1'), $('.currency2'));
+		$value1.on('keyup', function() {
+			convertValue($value2, $value1, $currency2, $currency1);
+		});
+
+		$value2.on('keyup', function() {
+			convertValue($value1, $value2, $currency1, $currency2);
 		});
 	}
 
@@ -73,15 +76,14 @@
 		if (select1.val() !== 'Currency' && select2.val() !== 'Currency') {
 			var convertFrom = 'USD' + select1.find(':selected').data('value');
 			var convertIn = 'USD' + select2.find(':selected').data('value');
-			input1.val((input2.val() * quotes(convertFrom)) / quotes(convertIn));
+			input1.val((input2.val() * processingCurrency(convertFrom)) / processingCurrency(convertIn));
 		};
 	}
 
 $(document).ready(function() {
-	request();
-	quotes();
-	selectValue();
-	inputValue();
+	loaderCurrencies();
+	processingCurrency();
+	convertCurrency();
 });
 
 })(jQuery);

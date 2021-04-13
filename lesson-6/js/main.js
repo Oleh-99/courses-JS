@@ -71,7 +71,7 @@
 		if (select1.val() !== 'Currency' && select2.val() !== 'Currency') {
 			var convertFrom = 'USD' + select1.find(':selected').data('value');
 			var convertIn = 'USD' + select2.find(':selected').data('value');
-			input1.val((input2.val() * processingCurrency(convertFrom)) / processingCurrency(convertIn));
+			input1.val((parseFloat(input2.val()) * processingCurrency(convertFrom)) / processingCurrency(convertIn));
 		};
 	}
 

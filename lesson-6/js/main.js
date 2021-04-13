@@ -7,6 +7,7 @@
 		$.ajax({
 			url: `http://api.currencylayer.com/list?access_key=${apiKey}`, 
 			success: function(data) {
+				data.currencies['APL'] = 'Iphone 12';
 				renderCurrency(data.currencies);
 			},
 			error: function() {
@@ -17,19 +18,20 @@
 
 	function renderCurrency(data) {
 		for (let i in data) {
-			$('.currency1').append(`<option>${i}</option>`);
-			$('.currency2').append(`<option>${i}</option>`);
+			$('select').append(`<option data-value="${i}">${data[i]}</option>`);
 		};
 	}
 
 	function quotes(info) {
 		var result;
+
 		if(0 === arrCurrency.length) {
 			$.ajax({
-				url: `http://api.currencylayer.com/live?access_key=${apiKey}&format=1`, 
+				url: `http://api.currencylayer.com/live?access_key=${apiKey}`, 
 				async: false,
 				success: function(data) {
 					arrCurrency = data;
+					arrCurrency.quotes['USDAPL'] = 0.0012515644555695;
 					if (arrCurrency.quotes[info]) {
 						result = arrCurrency.quotes[info];	
 					}
@@ -49,58 +51,37 @@
 
 	function selectValue() {
 		$('.currency1').on('change', function() {
-			convertValue1();
+			convertValue($('.value-1'), $('.value-2'), $('.currency1'), $('.currency2'));
 		});
 
 		$('.currency2').on('change', function() {
-			convertValue2();
+			convertValue($('.value-2'), $('.value-1'), $('.currency2'), $('.currency1'));
 		});
 	}
 
 	function inputValue() {
 		$('.value-1').on('keyup', function() {
-			convertValue2();
+			convertValue($('.value-2'), $('.value-1'), $('.currency2'), $('.currency1'));
 		});
 
 		$('.value-2').on('keyup', function() {
-			convertValue1();
+			convertValue($('.value-1'), $('.value-2'), $('.currency1'), $('.currency2'));
 		});
 	}
 
-	function convertValue1() {
-		if ($('.currency2').val() !== 'Currency' && $('.currency1').val() !== 'Currency') {
-			var field1 = $('.value-1').val(' ');
-			var field2 = $('.value-2');
-			var convertFrom = 'USD' + $('.currency1').val();
-			var convertIn = 'USD' + $('.currency2').val();
-			field1.val((field2.val() * quotes(convertFrom)) / quotes(convertIn));
-		}
-	}
-
-	function convertValue2() {
-		if ($('.currency2').val() !== 'Currency' && $('.currency1').val() !== 'Currency') {
-			var field1 = $('.value-1');
-			var field2 = $('.value-2').val(' ');
-			var convertFrom = 'USD' + $('.currency2').val();
-			var convertIn = 'USD' + $('.currency1').val();
-			field2.val((field1.val() * quotes(convertFrom)) / quotes(convertIn));
-		}
-	}
-
-	function convertPrice() {
-		$('.price-apple').find('.currency1').on('change', function() {
-			var $this = $(this).val();
-			$('.icon').attr('src', `https://cryptoicons.org/api/icon/${$this.toLowerCase()}/200`);
-			var convert = 'USD' + $this;
-			$('.price').text((799 * quotes(convert)).toFixed(2));
-		})
+	function convertValue(input1, input2, select1, select2) {
+		if (select1.val() !== 'Currency' && select2.val() !== 'Currency') {
+			var convertFrom = 'USD' + select1.find(':selected').data('value');
+			var convertIn = 'USD' + select2.find(':selected').data('value');
+			input1.val((input2.val() * quotes(convertFrom)) / quotes(convertIn));
+		};
 	}
 
 $(document).ready(function() {
 	request();
+	quotes();
 	selectValue();
 	inputValue();
-	convertPrice();
-})
+});
 
 })(jQuery);

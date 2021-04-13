@@ -5,29 +5,25 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
-	<div class="info-time-wrapper">Data updates <span class="info-time"></span></div>
-	<br>
-	<input type="numbers" class="value-1">
-	<select class="currency1">
-		<option>Currency</option>
-	</select>
-	<br><br>
-	<input type="numbers" class="value-2">
-	<select class="currency2">
-		<option>Currency</option>
-	</select>
-	<br><br><br><br>
-	<div class="price-apple">
-		<span>Price Iphone 12</span>
-		<select class="currency1">
-			<option>Currency</option>
-		</select>
-		<span class="price"></span>
-		<img class="icon" src="" alt="" style="max-height: 30px;">
-	</div>
-
+	<section class="currency-wrapper">
+		<div class="info-time-wrapper">Data updates <span class="info-time"></span></div>
+		<div class="value-wrapper">
+			<input type="numbers" class="value-1">
+			<select class="currency1">
+				<option>Currency</option>
+			</select>
+		</div>
+		<div class="value-wrapper">
+			<input type="numbers" class="value-2">
+			<select class="currency2">
+				<option>Currency</option>
+			</select>	
+		</div>	
+	</section>
 	<script src="js/jquery-3.6.0.min.js"></script>
 	<script src="js/main.js"></script>
 </body>

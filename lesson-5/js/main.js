@@ -5,7 +5,7 @@
 	function searchHelp() {
 		var arrDataSearch = [];	
 		$('.input-search').on('keyup', function() {
-			$thisInput = $('.input-search').val();
+			var $thisInput = $('.input-search').val();
 		
 			if (3 <= $thisInput.length) {
 				if('undefined' === typeof arrDataSearch['conutryName_' + $thisInput]) {
@@ -113,13 +113,13 @@
 	function translateValue() {
 		$(document).on('click', '.btn-value', function(e) {
 			e.preventDefault();
-			$thisBtn = $('.btn-value');
-			$temp = $('.temp');
-			$tempMin = $('.temp-min');
-			$tempMax = $('.temp-max');
-			$tempFeels = $('.temp-feels');
+			var $thisBtn = $('.btn-value');
+			var $temp = $('.temp');
+			var $tempMin = $('.temp-min');
+			var $tempMax = $('.temp-max');
+			var $tempFeels = $('.temp-feels');
 			
-			if($thisBtn.hasClass('value-F')) {
+			if ($thisBtn.hasClass('value-F')) {
 				$thisBtn.removeClass('value-F');
 				$thisBtn.addClass('value-C');
 				$thisBtn.text('°F');
@@ -196,6 +196,6 @@
 		searchHelp();
 		translateValue();
 		searchCountryId();
-	})
+	});
 
 })(jQuery);

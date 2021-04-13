@@ -37,3 +37,12 @@ input[type="numbers"] {
 .value-wrapper {
 	margin-bottom: 15px;
 }
+
+.currency-now {
+	margin-bottom: 15px;
+	font-weight: 500;
+}
+
+.currency-now .euro {
+	margin-right: 30px;
+}

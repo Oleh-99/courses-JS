@@ -35,6 +35,9 @@
 					if (arrCurrency.quotes[info]) {
 						result = arrCurrency.quotes[info];	
 					}
+					var $currencyWrapper = $('.currency-now');
+					$currencyWrapper.find('.dollar').text(arrCurrency.quotes['USDUAH'].toFixed(2));
+					$currencyWrapper.find('.euro').text(((1 * arrCurrency.quotes['USDUAH']) / arrCurrency.quotes['USDEUR']).toFixed(2));
 					$('.info-time').append(new Date(data.timestamp * 1000.0).toLocaleString());
 				},
 				error: function() {

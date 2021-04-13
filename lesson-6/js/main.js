@@ -42,9 +42,7 @@
 				}
 			});
 		} else {
-			if (arrCurrency.quotes[info]) {
-				result = arrCurrency.quotes[info];	
-			};
+			result = arrCurrency.quotes[info];	
 		};
 		return result;
 	}
@@ -58,15 +56,12 @@
 		$currency1.on('change', function() {
 			convertValue($value1, $value2, $currency1, $currency2);
 		});
-
 		$currency2.on('change', function() {
 			convertValue($value2, $value1, $currency2, $currency1);
 		});
-
 		$value1.on('keyup', function() {
 			convertValue($value2, $value1, $currency2, $currency1);
 		});
-
 		$value2.on('keyup', function() {
 			convertValue($value1, $value2, $currency1, $currency2);
 		});

@@ -37,7 +37,7 @@
 					}
 					var $currencyWrapper = $('.currency-now');
 					$currencyWrapper.find('.dollar').text(arrCurrency.quotes['USDUAH'].toFixed(2));
-					$currencyWrapper.find('.euro').text(((1 * arrCurrency.quotes['USDUAH']) / arrCurrency.quotes['USDEUR']).toFixed(2));
+					$currencyWrapper.find('.euro').text(((arrCurrency.quotes['USDUAH']) / arrCurrency.quotes['USDEUR']).toFixed(2));
 					$('.info-time').append(new Date(data.timestamp * 1000.0).toLocaleString());
 				},
 				error: function() {
@@ -47,6 +47,7 @@
 		} else {
 			result = arrCurrency.quotes[info];	
 		};
+
 		return result;
 	}
 
@@ -71,10 +72,12 @@
 	}
 
 	function convertValue(input1, input2, select1, select2) {
-		if (select1.val() !== 'Currency' && select2.val() !== 'Currency') {
-			var convertFrom = 'USD' + select1.find(':selected').data('value');
-			var convertIn = 'USD' + select2.find(':selected').data('value');
-			input1.val((parseFloat(input2.val()) * processingCurrency(convertFrom)) / processingCurrency(convertIn));
+		if ('Currency' !== select1.val() && 'Currency' !== select2.val()) {
+			if (0 !== input1.val().length || 0 !== input2.val().length) {
+				var convertFrom = 'USD' + select1.find(':selected').data('value');
+				var convertIn = 'USD' + select2.find(':selected').data('value');
+				input1.val((parseFloat(input2.val()) * processingCurrency(convertFrom)) / processingCurrency(convertIn));
+			}
 		};
 	}
 

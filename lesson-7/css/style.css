@@ -4143,6 +4143,7 @@ input[type=submit] {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0;
 }
 .threesixty .nav_bar > a::after {
   font-family: "Font Awesome 5 Pro";
@@ -4151,12 +4152,14 @@ input[type=submit] {
 }
 .threesixty .nav_bar .nav_bar_play {
   position: relative;
+  font-size: 0;
 }
 .threesixty .nav_bar .nav_bar_play::after {
   content: "";
 }
 .threesixty .nav_bar .nav_bar_previous {
   position: relative;
+  font-size: 0;
 }
 .threesixty .nav_bar .nav_bar_previous::after {
   content: "";
@@ -4164,6 +4167,7 @@ input[type=submit] {
 }
 .threesixty .nav_bar .nav_bar_next {
   position: relative;
+  font-size: 0;
 }
 .threesixty .nav_bar .nav_bar_next::after {
   content: "";
@@ -4171,6 +4175,7 @@ input[type=submit] {
 }
 .threesixty .nav_bar .nav_bar_stop {
   position: relative;
+  font-size: 0;
 }
 .threesixty .nav_bar .nav_bar_stop::after {
   content: "";

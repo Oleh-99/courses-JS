@@ -2427,6 +2427,7 @@ input[type="submit"] {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		font-size: 0;
 
 		&::after {
 			font-family: "Font Awesome 5 Pro";
@@ -2437,6 +2438,8 @@ input[type="submit"] {
 
 	.nav_bar_play {
 		position: relative;
+		font-size: 0;
+
 		&::after {
 			content: "\f04b";
 		}
@@ -2444,6 +2447,8 @@ input[type="submit"] {
 
 	.nav_bar_previous {
 		position: relative;
+		font-size: 0;
+
 		&::after {
 			content: "\f104";
 			font-size: 30px;
@@ -2452,6 +2457,8 @@ input[type="submit"] {
 
 	.nav_bar_next {
 		position: relative;
+		font-size: 0;
+
 		&::after {
 			content: "\f105";
 			font-size: 30px;
@@ -2460,6 +2467,8 @@ input[type="submit"] {
 
 	.nav_bar_stop {
 		position: relative;
+		font-size: 0;
+		
 		&::after {
 			content: "\f04c";
 		}

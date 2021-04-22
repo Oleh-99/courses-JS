@@ -4,12 +4,15 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/> <!--fontawesome 5-->
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 	<link rel="stylesheet" href="css/slick.css">
 	<link rel="stylesheet" href="css/slick-theme.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/photoswipe.min.css">
+	<link rel="stylesheet" href="css/default-skin.min.css">
 	<link rel="stylesheet" href="css/style.css">
 	<title>Document</title>
 </head>
@@ -32,7 +35,7 @@
 				  </ul>
 				  <form class="form-inline my-2 my-lg-0">
 					<span class="input-wrapper"><input class="form-control mr-sm-2 input-search" type="search" placeholder="Search" aria-label="Search"></span>
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit" data-toggle="tooltip" data-placement="top" title="Search">Search</button>
 				  </form>
 				</div>
 			  </nav>
@@ -45,13 +48,60 @@
 	</section>
 	<section class="filters">
 		<div class="container">
+			<ul class="filter">
+				<li class="active" data-filter="*" data-toggle="tooltip" data-placement="top" title="All"><a href="#">All</a></li>
+				<li data-filter=".item1" data-toggle="tooltip" data-placement="top" title="Item1"><a href="#">Item1</a></li>
+				<li data-filter=".item2" data-toggle="tooltip" data-placement="top" title="Item2"><a href="#">Item2</a></li>
+				<li data-filter=".item3" data-toggle="tooltip" data-placement="top" title="Item3"><a href="#">Item3</a></li>
+				<li data-filter=".item4" data-toggle="tooltip" data-placement="top" title="Item4"><a href="#">Item4</a></li>
+			</ul>
 			<div class="row cards-wrapper">
 			</div>
 		</div>
 	</section>
-
+	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="pswp__bg"></div>
+		<div class="pswp__scroll-wrap">
+			<div class="pswp__container">
+				<div class="pswp__item"></div>
+				<div class="pswp__item"></div>
+				<div class="pswp__item"></div>
+			</div>
+			<div class="pswp__ui pswp__ui--hidden">
+				<div class="pswp__top-bar">
+					<div class="pswp__counter"></div>
+					<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+					<button class="pswp__button pswp__button--share" title="Share"></button>
+					<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+					<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+					<div class="pswp__preloader">
+						<div class="pswp__preloader__icn">
+						  <div class="pswp__preloader__cut">
+							<div class="pswp__preloader__donut"></div>
+						  </div>
+						</div>
+					</div>
+				</div>
+				<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+					<div class="pswp__share-tooltip"></div> 
+				</div>
+				<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+				</button>
+				<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+				</button>
+				<div class="pswp__caption">
+					<div class="pswp__caption__center"></div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script src="lib/jquery-3.6.0.min.js"></script>
 	<script src="lib/slick.min.js"></script>
+	<script src="lib/imagesloaded.pkgd.min.js"></script>
+	<script src="lib/photoswipe-ui-default.min.js"></script>
+	<script src="lib/photoswipe.min.js"></script>
+	<script src="lib/isotope.pkgd.min.js"></script>
+	<script src="lib/bootstrap.bundle.min.js"></script>
 	<script src="js/main.js"></script>
 </body>
 </html>

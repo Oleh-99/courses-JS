@@ -67,6 +67,8 @@ a {
 
 	&:hover{
 		opacity: 0.6;
+		color: $color-base;
+		text-decoration: none;
 	}
 }
 
@@ -172,6 +174,8 @@ button,
 input[type="button"],
 input[type="submit"] {
 	background: #333333;
+	border: 1px solid #333333;
+	border-radius: 5px;
 	color: #fff;
 	padding: 10px;
 	outline: none;
@@ -207,6 +211,35 @@ input[type="submit"] {
 	left: 0;
 	right: 0;
 	z-index: 10;
+	display: flex;
+	flex-wrap: wrap;
+	background: #FFF;
+	min-height: 50px;
+}
+
+.result {
+	padding: 10px;
+	width: 50%;
+	display: none;
+}
+
+.loader-result {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba($color: #000000, $alpha: 0.1);
+
+	.loader-gif{	
+		position: absolute;
+		top: calc(50% - 25px);
+		left: calc(50% - 25px);
+		background: url(../img/802.gif);
+		background-size: cover;
+		height: 50px;
+		width: 50px;
+	}
 }
 
 .form-inline {
@@ -255,19 +288,105 @@ input[type="submit"] {
 }
 
 // ------------------------------------------------------------------------------------------------
-// 
+// Filter
 // ------------------------------------------------------------------------------------------------
-
-.filters {
-
-	.card {
-		height: 100%;
-	}
-}
 
 .cards-wrapper {
 
 	> [class*=col-] {
 		margin-bottom: 30px;
+	}
+}
+
+.filter {
+	display: flex;
+	justify-content: flex-end;
+	list-style: none;
+	padding-left: 0;
+
+	a {
+		display: block;
+		padding: 10px;
+		border-radius: 5px;
+		
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	li {
+		margin: 0 5px;
+		transition: all 0.3s ease;
+
+		&:hover,
+		&.active {
+
+			a {
+				background: $color-primary;
+				color: #fff;
+			}
+		}
+	}
+}
+
+// ------------------------------------------------------------------------------------------------
+// profile
+// ------------------------------------------------------------------------------------------------
+
+.profile {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 30px;
+
+	.profile-foto {
+		margin-right: 15px;
+		border-radius: 50%;
+		overflow: hidden;
+	}
+}
+
+.our-user {
+
+	.row > [class*=col-] {
+		margin-bottom: 30px;
+	}
+}
+
+.foto-wrapper {
+	position: relative;
+
+	a {
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	&:hover {
+
+		.foto-inner {
+			opacity: 1;
+		}
+	}
+}
+
+.foto-inner {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	opacity: 0;
+	padding: 20px;
+	text-align: center;
+	transition: opacity 0.3s ease;
+	pointer-events: none;
+
+	.button {
+		pointer-events: all;
+		&:hover {
+			opacity: 1;
+			background: #fff
+		}
 	}
 }

@@ -206,6 +206,7 @@ input[type="submit"] {
 }
 
 .render-search {
+	display: none;
 	position: absolute;
 	top: 100%;
 	left: 0;
@@ -221,6 +222,22 @@ input[type="submit"] {
 	padding: 10px;
 	width: 50%;
 	display: none;
+	transition: background 0.3s ease;
+	cursor: pointer;
+
+	&:hover {
+		background: rgb(199, 199, 199);
+	}
+}
+
+.info {
+	width: 100%;
+	padding: 10px;
+    font-size: 57px;
+    letter-spacing: 10px;
+    text-align: center;
+    opacity: 0.5;
+	pointer-events: none;
 }
 
 .loader-result {
@@ -384,9 +401,18 @@ input[type="submit"] {
 
 	.button {
 		pointer-events: all;
+
 		&:hover {
 			opacity: 1;
 			background: #fff
 		}
 	}
+}
+
+.our-user {
+	margin-bottom: 50px;
+}
+
+.button-wrapper {
+	text-align: center;
 }

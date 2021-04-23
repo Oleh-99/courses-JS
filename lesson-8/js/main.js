@@ -1,5 +1,8 @@
 (function($) {
 	var apiKey = 'WVEgiSInGXai1zSVMYF8CWe5huRwfA-cS4W7RmUDQEg';
+	// var apiKey = '_ZfWVzebQ9k0LSIaSSXBWkHZp-mRLKACCGwd67zj6IQ';
+	// var apiKey = '7oXAilgZTcO__hXeXv0o2D41U6WwZCFpmxkhW0i5IWQ';
+	
 	var cacheSearch = [];
 	var filter = ['item1', 'item2', 'item3', 'item4', 'item2', 'item1', 'item2', 'item3', 'item4', 'item1', 'item3', 'item4',];
 
@@ -11,6 +14,8 @@
 					sessionStorage.setItem('dataPhoto', JSON.stringify(data));
 					renderCard();
 					creatingSlider();
+					fotoSwipe();
+					filterProduct();
 				},
 				error: function() {
 					alert('Error');
@@ -110,7 +115,7 @@
 								removeLoaderSearch();
 								$('.render-search').append(
 									`<div class="info">Not information</div>`
-								);
+								).slideDown(3000);
 							}
 						},
 						error: function() {
@@ -136,14 +141,16 @@
 
 			$('.result').imagesLoaded()
 			.done(function(instance) {
-				$('.result').slideDown(300);
+				$('.result').slideDown(1000);
 				removeLoaderSearch();
 			});	
 		}
 	}
 
 	function removeSearch() {
-		$('.render-search').slideUp(3000).remove();
+		$('.render-search').slideUp(500);
+		$('.render-search').remove().delay(3000);
+		$('.info').slideUp(1000).remove();		
 	}
 
 	function addLoaderSearch() {
@@ -161,21 +168,14 @@
 			var id = $this.data('value');
 			var searchKey = $this.parent().prev().val();
 			var usersInfo = cacheSearch[searchKey].photos.results[id];
+			var num = 1;
+			var availabilty = true;
 			
 			removeSearch();
 			$('.slider-wrapper').remove();
 			$('.filters').remove();
 			$('.our-user').remove();
 
-			$.ajax({
-				url: `${usersInfo.user.links.photos}?client_id=${apiKey}`, 
-				success: function(data) {
-					fotoUsers(data);
-				},
-				error: function() {
-					alert('Error');
-				},
-			});
 
 			$('body').append(
 				`<section class="our-user">
@@ -189,30 +189,70 @@
 								<p></p>
 							</div>
 						</div>
+						<div class="row photo-users cards-wrapper"></div>
 					</div>
+					<div class="button-wrapper"><a href="#" class="button add-foto">Add foto</a></div>
 				</section>`
 			);
+			
+			getUsersFoto(usersInfo.user.links.photos);
 
-			function fotoUsers(data) {
-				$('.our-user').find('.container').append('<div class="row"></div>');
-
-				let $profileWrapper = $('.our-user').find('.row');
-
-				for (let index = 0; index < data.length; index++) {
-					$profileWrapper.append(
-						`<div class="col-sm-12 col-md-6 col-lg-4 foto-wrapper">
-						<a href="${data[index].urls.regular}" class="foto-view" data-width="${data[index].width}" data-height="${data[index].height}"><img src="${data[index].urls.raw}&fit=crop&w=350&h=350" alt=""></a>
-							<div class="foto-inner">
-								<a href="${data[index].links.download}?force=true" class="button"  data-toggle="tooltip" data-placement="top" title="Download"><i class="far fa-cloud-download-alt"></i></a>
-							</div>
-						</div>`
-					);
+			function getUsersFoto(user) {
+				if (true === availabilty) {
+					$.ajax({
+						url: `${user}?client_id=${apiKey}&page=${num}`, 
+						async: false,
+						success: function(data) {
+							if (data.length === 0) {
+								availabilty = false;
+								num = 1;
+							}
+							fotoUsers(data);
+							num++;
+						},
+						error: function() {
+							alert('Error');
+						},
+					});
 				}
-				$profileWrapper.imagesLoaded()
-					.done(function(instance) {
-						$profileWrapper.slideDown(300);
-						fotoSwipe();
-					});	
+		
+				function fotoUsers(data) {
+					let $profileWrapper = $('.photo-users');
+		
+					for (let index = 0; index < data.length; index++) {
+						$profileWrapper.append(
+							`<div class="col-sm-12 col-md-6 col-lg-4 foto-wrapper filters-inner">
+							<a href="${data[index].urls.regular}" class="foto-view" data-width="${data[index].width / 2}" data-height="${data[index].height / 2}"><img src="${data[index].urls.raw}&fit=crop&w=400&h=400" alt=""></a>
+								<div class="foto-inner">
+									<a href="${data[index].links.download}?force=true" class="button"  data-toggle="tooltip" data-placement="top" title="Download"><i class="far fa-cloud-download-alt"></i></a>
+								</div>
+							</div>`
+						);
+					}
+
+					$profileWrapper.imagesLoaded()
+						.done(function(instance) {
+							$profileWrapper.slideDown(300);
+							fotoSwipe();  
+							waypointer();
+						});
+				}
+			}
+		
+			function waypointer() {
+		
+				if ('undefined' === typeof Waypoint || false === availabilty) {
+					return;
+				}
+
+				new Waypoint({
+					element: '.add-foto',
+					handler: function() {	
+						getUsersFoto(usersInfo.user.links.photos);
+					},
+					offset: '100%',
+					
+				});
 			}
 		});
 	}
@@ -246,28 +286,33 @@
 			);
 		}
 	}
+	
 
 	function fotoSwipe() {
 		if ('undefined' === typeof PhotoSwipe) {
 			return;
 		}
 
-		var $pswp = $('.pswp')[0];
+		var $pswp = $('.pswp')[0];	
 		var attr = $('.filter').find('.active').data('filter');
-		console.log(attr);
-
-		if('*' !== attr) {
-			var filter = attr;
-		} else {
-			var filter = '.filters-inner';
-		}
 
 		$('.cards-wrapper').each( function() {
-			var $pic = $(this).find(filter),
+			var $this = $(this);
+
+			if ($this.parents().hasClass('filters')) {
+				if('*' !== attr) {
+					var filter = attr;
+				} else {
+					var filter = '.filters-inner';
+				}
+			} else {
+				filter = '.filters-inner';
+			}
+
+			var $pic = $this.find(filter),
 				getItems = function() {
 					var items = [];
 					$pic.each(function() {
-						
 						var $this = $(this).find('.foto-view');
 						var item = {
 							src: $this.attr('href'),
@@ -285,14 +330,17 @@
 			$pic.on('click', '.foto-view', function(event) {
 				event.preventDefault();
 				
-				var $index = $(this).parents('.filters-inner').index();
+				var $index = $(this).parents(filter).index();
+				console.log($index);
 				var options = {
 					index: $index,
 					bgOpacity: 0.7,
 					showHideOpacity: true
 				};
-	
-				new PhotoSwipe($pswp, PhotoSwipeUI_Default, items, options).init();
+				var pswp;
+								
+				pswp = new PhotoSwipe($pswp, PhotoSwipeUI_Default, items, options);
+				pswp.init();
 			});
 		});
 	}
@@ -326,6 +374,7 @@
 				grid.arrange({
 					filter: filterData,
 				});
+
 				fotoSwipe();
 			});
 		}

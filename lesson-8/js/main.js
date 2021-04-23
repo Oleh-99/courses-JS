@@ -176,7 +176,6 @@
 			$('.filters').remove();
 			$('.our-user').remove();
 
-
 			$('body').append(
 				`<section class="our-user">
 					<div class="container">
@@ -251,7 +250,6 @@
 						getUsersFoto(usersInfo.user.links.photos);
 					},
 					offset: '100%',
-					
 				});
 			}
 		});
@@ -335,7 +333,7 @@
 				var options = {
 					index: $index,
 					bgOpacity: 0.7,
-					showHideOpacity: true
+					showHideOpacity: true,
 				};
 				var pswp;
 								
@@ -365,6 +363,7 @@
 	
 			$('.filter').on('click', 'li', function(e) {
 				e.preventDefault();
+				
 				let $this = $(this);
 				let filterData = $this.data('filter');
 	

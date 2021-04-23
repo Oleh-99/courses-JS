@@ -11,7 +11,7 @@
 				if('undefined' === typeof arrDataSearch['conutryName_' + $thisInput]) {
 					showLoader();
 					$.ajax({
-						url: `http://api.openweathermap.org/data/2.5/find?q=${$thisInput}&appid=${apiKey}&units=metric`, 
+						url: `https://api.openweathermap.org/data/2.5/find?q=${$thisInput}&appid=${apiKey}&units=metric`, 
 						success: function(data) {
 							if (0 !== data.count) {
 								arrDataSearch['conutryName_' + $thisInput] = data;
@@ -58,7 +58,7 @@
 			if('undefined' === typeof arrSearchHelp['conutryId_' + id]) {
 				showLoader();
 				$.ajax({
-					url: `http://api.openweathermap.org/data/2.5/weather?id=${id}&appid=${apiKey}&lang=RU`, 
+					url: `https://api.openweathermap.org/data/2.5/weather?id=${id}&appid=${apiKey}&lang=RU`, 
 					success: function(data) {
 						arrSearchHelp['conutryId_' + id] = data;
 						renderWeather(arrSearchHelp['conutryId_' + id]);
@@ -178,7 +178,7 @@
 
 	function renderGgeolocation(lat, lon) {
 		$.ajax({
-			url: `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&lang=RU`, 
+			url: `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&lang=RU`, 
 			success: function(data) {
 				renderWeather(data);
 			},

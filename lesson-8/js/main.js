@@ -98,19 +98,19 @@
 
 	function search() {
 		$('.input-search').on('keyup', function() {
-			var $thisInput = $('.input-search').val();
+			var thisInput = $('.input-search').val();
 			
-			if (2 <= $thisInput.length) {
-				if ('undefined' === typeof cacheSearch[$thisInput]) {
+			if (2 <= thisInput.length) {
+				if ('undefined' === typeof cacheSearch[thisInput]) {
 					removeSearch();
 					addLoaderSearch();
 
 					$.ajax({
-						url: `https://api.unsplash.com/search?query=${$thisInput}&client_id=${apiKey}`, 
+						url: `https://api.unsplash.com/search?query=${thisInput}&client_id=${apiKey}`, 
 						success: function(data) {
 							if (0 !== data.photos.total) {
-								cacheSearch[$thisInput] = data;
-								renderSearch(cacheSearch[$thisInput]);
+								cacheSearch[thisInput] = data;
+								renderSearch(cacheSearch[thisInput]);
 							} else {
 								removeLoaderSearch();
 								$('.render-search').append(
@@ -125,7 +125,7 @@
 				} else {
 					removeSearch();
 					addLoaderSearch();
-					renderSearch(cacheSearch[$thisInput]);
+					renderSearch(cacheSearch[thisInput]);
 				}		
 			} else {
 				removeSearch();
@@ -325,7 +325,7 @@
 				
 			var items = getItems();
 	
-			$pic.on('click', '.foto-view', function(event) {
+			$pic.off('click').on('click', '.foto-view', function(event) {
 				event.preventDefault();
 				
 				var $index = $(this).parents(filter).index();
@@ -335,10 +335,8 @@
 					bgOpacity: 0.7,
 					showHideOpacity: true,
 				};
-				var pswp;
 								
-				pswp = new PhotoSwipe($pswp, PhotoSwipeUI_Default, items, options);
-				pswp.init();
+				pswp = new PhotoSwipe($pswp, PhotoSwipeUI_Default, items, options).init();
 			});
 		});
 	}
@@ -363,7 +361,7 @@
 	
 			$('.filter').on('click', 'li', function(e) {
 				e.preventDefault();
-				
+
 				let $this = $(this);
 				let filterData = $this.data('filter');
 	
